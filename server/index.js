@@ -6,11 +6,13 @@ const YAML = require("yamljs");
 const swaggerUI = require("swagger-ui-express");
 const fileUpload = require("express-fileupload");
 const swaggerJSDocs = YAML.load('./api.yaml');
+const router = require("./Router/route.js");
 const app = express();
 
 app.use(express.json());
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
 app.use(fileUpload());
+app.use(router)
 app.use(cors());
 
 app.get('/', function (req, res) {

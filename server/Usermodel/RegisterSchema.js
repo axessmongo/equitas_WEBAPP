@@ -1,12 +1,27 @@
-import mongoose from 'mongoose';
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
+  fname: {
+    type: "string",
+  },
+  lname: {
+    type: "string",
+  },
+  email: {
+    type: "string",
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: "string",
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-})
+const Register = mongoose.model("Register", blogSchema);
 
-
-const Blog = mongoose.model('Blog', blogSchema);
-
-
-module.exports = Blog;
+module.exports = Register;
