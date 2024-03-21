@@ -1,0 +1,66 @@
+@use './clientform';
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --our-color1: #d12030;
+    --our-color2: #19468b;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.dashboard {
+
+    background-color: #f8f9fa;
+
+    .nav-link {
+        font-weight: 500;
+        color: rgb(105, 105, 105);
+        padding: 15px 15px !important;
+        margin: 5px 0;
+
+        i {
+            font-size: 14px;
+            padding: 6px 9px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+            border-radius: 8px;
+            margin-right: 5px;
+        }
+
+        &.active {
+            background-color: white;
+            box-shadow: 0 20px 27px 0 rgba(0, 0, 0, .05);
+            color: rgb(61, 61, 61);
+            border-radius: 0.5rem;
+
+            i {
+                background-color: var(--our-color2);
+                color: white;
+            }
+        }
+    }
+
+}
+
+.ourtable {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    text-align: center;
+    margin: 20px 0;
+
+    table tbody {
+        tr:last-child td{
+            border: none;
+        }
+    }
+}
