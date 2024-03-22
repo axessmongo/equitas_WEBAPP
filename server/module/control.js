@@ -137,7 +137,7 @@ const verfiedForgetPassword = async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
-
+       
 //setNewpassword
 
 const setNewPassword = async (req, res) => {
