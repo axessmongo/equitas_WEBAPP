@@ -105,7 +105,7 @@ const forgetpassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
     await user.save();
 
-    const url = `http://localhost:3000/password-reset/${user._id}/${resetToken}`;
+    const url = `http://localhost:3000/password/${user._id}/${resetToken}`;
     await Sendmailer(user.email, resetToken);
 
     res

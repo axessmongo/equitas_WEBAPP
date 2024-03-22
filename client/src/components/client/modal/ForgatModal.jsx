@@ -1,7 +1,28 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 export default function ForgotModal(props) {
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = () => {
+        setLoading(true);
+        axios.post('http://localhost:5000/api/password', { email })
+            .then(response => {
+                
+                alert('Password reset request sent successfully')
+                console.log('Password reset request sent successfully:', response.data);
+                setLoading(false);
+                props.onHide();
+            })
+            .catch(error => {
+                // Handle error, maybe show an error message
+                console.error('Error while resetting password:', error);
+                setLoading(false);
+            });
+    };
+
     return (
         <Modal
             {...props}
@@ -26,6 +47,8 @@ export default function ForgotModal(props) {
                         name="email"
                         id='email'
                         placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <span className="focus-input100" />
                     <span className="symbol-input100">
@@ -34,8 +57,9 @@ export default function ForgotModal(props) {
                 </div>
             </Modal.Body>
             <Modal.Footer className='border-0 justify-content-center'>
-                {/* <Button onClick={props.onHide}>Close</Button> */}
-                <Button className='btn btn-success'>Submit</Button>
+                <Button className='btn btn-success' onClick={handleSubmit} disabled={loading}>
+                    {loading ? 'Loading...' : 'Submit'}
+                </Button>
             </Modal.Footer>
         </Modal>
     );

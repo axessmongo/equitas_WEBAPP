@@ -8,9 +8,9 @@ const {
   setNewPassword,
 } = require('../module/control');
 
-router.post('/api/register', RegisterPostMethod);
+router.post('/register', RegisterPostMethod);
 router.post('/api/login', loginpostmethod);
-router.post('/api/password-reset', forgetpassword);
+router.post('/api/password', forgetpassword);
 router.get('/:id/:token', verfiedForgetPassword);
 router.post('/:id/:token', setNewPassword);
 
