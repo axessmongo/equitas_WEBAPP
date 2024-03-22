@@ -11,7 +11,15 @@ export default function Check() {
         }
     }
 
-    a()("sangav")('lavanya')
+    a()("sangav")('lavanya');
+
+
+    function recursion(){
+        console.log(Math.random());
+        setTimeout(recursion, 2000)
+    }
+
+    recursion();
 
     return (
 

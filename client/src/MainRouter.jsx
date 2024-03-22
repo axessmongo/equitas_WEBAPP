@@ -16,6 +16,7 @@ export default function MainRouter() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<ClientLogin/>}/>
+                    <Route path='/check' element={<Check/>}/>
                     <Route path='/clientdashboard' element={<ClientDashboard/>}>
                         <Route path='ongoing'  element={<ClientOngoingTable/>}/>
                         <Route path='clientselected'  element={<ClientSelectedTable/>}/>

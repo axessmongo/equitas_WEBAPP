@@ -19,7 +19,7 @@ export default function ClientLogin() {
         console.log(response.data.data);
         alert('welcome to you');
         resetForm();
-        navigate('/clientdashboard');
+        navigate('/clientdashboard/ongoing');
       })
       .catch(error => {
         console.error('Login failed:', error);
