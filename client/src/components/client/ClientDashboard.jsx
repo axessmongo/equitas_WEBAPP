@@ -11,7 +11,7 @@ export default function ClientDashboard() {
     const realPathName = pathname.slice(1)
 
     console.log(realPathName);
-
+    
 
     return (
         <>
@@ -25,12 +25,12 @@ export default function ClientDashboard() {
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className="collapse navbar-collapse flex-column align-items-start" id="navbarTogglerDemo01">
-                                        <NavLink to={''} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center">
+                                        <NavLink to={'ongoing'} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center">
                                             <img src="https://www.equitasbank.com/sites/default/files/equitas-logo.png" alt="IMG" />
                                         </NavLink>
                                         <ul className="navbar-nav flex-column w-100">
                                             <li className="nav-item">
-                                                <NavLink to={'/clientdashboard'} className="nav-link">
+                                                <NavLink to={'ongoing'} className="nav-link">
                                                     <i className="bi bi-graph-up-arrow"></i> Ongoing projects
                                                 </NavLink>
                                             </li>
@@ -69,12 +69,12 @@ export default function ClientDashboard() {
                                 <div className='d-flex justify-content-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}
                                     <div>
-                                        <input type="checkbox" class="checkbox" id="checkbox"/>
-                                            <label for="checkbox" class="checkbox-label">
-                                                <i class="fas fa-moon bi bi-moon-fill"></i>
-                                                <i class="fas fa-sun bi bi-sun-fill"></i>
-                                                <span class="ball"></span>
-                                            </label>
+                                        <input type="checkbox" className="checkbox" id="checkbox" />
+                                        <label htmlFor="checkbox" className="checkbox-label">
+                                            <i className="fas fa-moon bi bi-moon-fill"></i>
+                                            <i className="fas fa-sun bi bi-sun-fill"></i>
+                                            <span className="ball"></span>
+                                        </label>
                                     </div>
                                     <div>
                                         <Link to={'/'} className='btn btn-danger'>Logout</Link>

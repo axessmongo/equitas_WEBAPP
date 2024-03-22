@@ -46,7 +46,7 @@ export default function ClientLogin() {
                                 console.log(values);
                                 values.email = ""
                                 resetForm();
-                                navigate('/clientdashboard')
+                                navigate('/clientdashboard/ongoing')
                             }}
                         >
                             {({ values, errors, touched, handleBlur, handleSubmit, handleChange }) => (
