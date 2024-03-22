@@ -1,26 +1,18 @@
-const express = require('express');
 const mongoose = require('mongoose');
+const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT || 6000;
-const YAML = require("yamljs");
-const swaggerUI = require("swagger-ui-express");
-const fileUpload = require("express-fileupload");
-const swaggerJSDocs = YAML.load('./api.yaml');
-const router = require("./Router/route.js");
+require('dotenv').config();
+
+const PORT = process.env.PORT;
 const app = express();
+const mainRouter = require("./Router/route.js");
 
 app.use(express.json());
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
-app.use(fileUpload());
-app.use(router)
 app.use(cors());
-
-app.get('/', function (req, res) {
-  res.send('Hello World')
-});
+app.use(mainRouter);
 
 mongoose
-  .connect("mongodb+srv://axessmongo:admin@cluster0.ozjlhdj.mongodb.net/equitas?retryWrites=true&w=majority", {
+  .connect(process.env.MONGODB_URL, {
   })
   .then(() => {
     console.log('Connected to MongoDB');

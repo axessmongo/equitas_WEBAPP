@@ -7,6 +7,8 @@ import ClientDashboard from './components/client/ClientDashboard';
 import ClientOngoingTable from './components/client/ClientOngoingTable';
 import ClientSelectedTable from './components/client/ClientSelectedTable';
 import ClientBidsTable from './components/client/ClientBidsTable';
+import Register from './components/client/Register';
+import ForgotPassword from './components/client/ForgotPassword';
 
 export default function MainRouter() {
     return (
@@ -19,6 +21,8 @@ export default function MainRouter() {
                         <Route path='clientselected'  element={<ClientSelectedTable/>}/>
                         <Route path='clientbids'  element={<ClientBidsTable/>}/>
                     </Route>
+                    <Route path="/register" element={<Register/>}/>
+                    <Route path='/forgotPassword' element={<ForgotPassword/>}/>
                 </Routes>
             </BrowserRouter>
         </>

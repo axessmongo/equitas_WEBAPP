@@ -1,13 +1,17 @@
-const equitas = require("../Module/RegisterControl.js");
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const {
+  RegisterPostMethod,
+  loginpostmethod,
+  forgetpassword,
+  verfiedForgetPassword,
+  setNewPassword,
+} = require('../module/control');
 
-
-router.post("/api/register", equitas.RegisterPostMethod);
-router.post("/api/login", equitas.loginpostmethod);
-//-forget-password:
-router.post("/api/password-reset", equitas.forgetpassword);
-
-
+router.post('/register', RegisterPostMethod);
+router.post('/api/login', loginpostmethod);
+router.post('/api/password', forgetpassword);
+router.get('/:id/:token', verfiedForgetPassword);
+router.post('/:id/:token', setNewPassword);
 
 module.exports = router;
