@@ -1,0 +1,47 @@
+$darkbg: #2b3035;
+$darklayout: #212529;
+
+html[data-bs-theme="dark"] {
+    .dashboard {
+        background-color: $darkbg;
+
+        .nav-link {
+            color: rgb(201, 201, 201);
+
+            i {
+                font-size: 1.1rem;
+                padding: 6px 9px;
+                border-radius: 8px;
+                margin-right: 5px;
+                border: .5px solid rgb(73, 73, 73);
+            }
+
+            &.active {
+                background-color: $darklayout;
+                color: white;
+
+                i {
+                    background-color: var(--our-color2);
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .ourtable {
+        background-color: $darklayout;
+    }
+
+    .checkbox-label {
+        background-color: #111;
+
+        .ball{
+            background-color: rgb(218, 218, 218);
+        }
+    }
+    
+    .checkbox:checked+.checkbox-label .ball {
+        transform: translate(31px, -50%);
+    }
+
+}

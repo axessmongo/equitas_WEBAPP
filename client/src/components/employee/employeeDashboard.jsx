@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { setMode } from '../../globalstate/slices/modeSlice';
 
-export default function employeeDashboard() {
+export default function EmployeeDashboard() {
 
 
     const location = useLocation();
@@ -11,7 +13,24 @@ export default function employeeDashboard() {
     const realPathName = pathname.slice(1)
 
     console.log(realPathName);
-    
+
+    let mode = useSelector((state) => state.mode)
+
+    useEffect(() => {
+        let html = document.documentElement;
+        if (mode) {
+            html.setAttribute('data-bs-theme', 'dark')
+        }else{
+            html.setAttribute('data-bs-theme', '')
+        }
+    }, [mode])
+
+    let dispatchMode = useDispatch()
+
+    function modeChange(){
+        dispatchMode(setMode(!mode))
+    }
+
 
     return (
         <>
@@ -25,31 +44,41 @@ export default function employeeDashboard() {
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className="collapse navbar-collapse flex-column align-items-start" id="navbarTogglerDemo01">
-                                        <NavLink to={'ongoing'} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center">
+                                        <NavLink to={'employeeuservalidation'} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center">
                                             <img src="https://www.equitasbank.com/sites/default/files/equitas-logo.png" alt="IMG" />
                                         </NavLink>
                                         <ul className="navbar-nav flex-column w-100">
                                             <li className="nav-item">
-                                                <NavLink to={'ongoing'} className="nav-link">
-                                                    <i className="bi bi-graph-up-arrow"></i> Ongoing projects
+                                                <NavLink to={'employeeuservalidation'} className="nav-link">
+                                                    <i className="bi bi-person-add"></i> User Validation
                                                 </NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to={'clientselected'} className="nav-link">
-                                                    <i className="bi bi-bookmark-check"></i> Intrested Projects</NavLink>
+                                                <NavLink to={'employeecreateproject'} className="nav-link">
+                                                    <i className="bi bi-folder-plus"></i> Create Project
+                                                </NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to={'clientbids'} className="nav-link">
-                                                    <i className="bi bi-coin"></i> My Bids
+                                                <NavLink to={'employeeongoing'} className="nav-link">
+                                                    <i className="bi bi-graph-up-arrow"></i> Ongoing projects
+                                                </NavLink>
+                                            </li>
+                                            {/* <li className="nav-item">
+                                                <NavLink to={'clientselected'} className="nav-link">
+                                                    <i className="bi bi-bookmark-check"></i> Intrested Projects</NavLink>
+                                            </li> */}
+                                            <li className="nav-item">
+                                                <NavLink to={'listofbids'} className="nav-link">
+                                                    <i className="bi bi-coin"></i> List of Bids
                                                 </NavLink>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="container-fluid mb-3">
-                                    <div className='profile myshadow bg-white w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center'>
+                                    <div className={`profile myshadow w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ':'bg-white'}`}>
                                         <div className='profile-img'>
-                                            <i className="bi bi-person-circle display-4"></i>
+                                            <i className="bi bi-person-circle display-6"></i>
                                         </div>
 
                                         <div className='profile-info'>
@@ -69,7 +98,7 @@ export default function employeeDashboard() {
                                 <div className='d-flex justify-content-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}
                                     <div>
-                                        <input type="checkbox" className="checkbox" id="checkbox" />
+                                        <input type="checkbox" className="checkbox" id="checkbox" onClick={modeChange}/>
                                         <label htmlFor="checkbox" className="checkbox-label">
                                             <i className="fas fa-moon bi bi-moon-fill"></i>
                                             <i className="fas fa-sun bi bi-sun-fill"></i>

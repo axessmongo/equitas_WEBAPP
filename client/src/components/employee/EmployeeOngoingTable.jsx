@@ -1,10 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-export default function ClientOngoingTable() {
-
-    let mode = useSelector(state => state.mode)
-
+export default function EmployeeOngoingTable() {
     return (
         <>
             <div className='ourtable'>
@@ -15,9 +11,7 @@ export default function ClientOngoingTable() {
                             <th className='py-3'>Open Time</th>
                             <th className='py-3'>Close Time</th>
                             <th className='py-3'>Project Name</th>
-                            <th className='py-3'>Interested</th>
-                            <th className='py-3'>More Info</th>
-                            <th className='py-3'>Bid Later</th>
+                            <th className='py-3'>More Info</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -26,11 +20,11 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Thu Mar 11 2024 16:24:10</td>
                             <td className='py-3'>Sun Mar 14 2024 16:24:10</td>
                             <td className='py-3'>Winxo corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
+
                         </tr>
 
                         <tr>
@@ -38,22 +32,22 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Fri Mar 12 2024 14:30:45</td>
                             <td className='py-3'>Mon Mar 15 2024 14:30:45</td>
                             <td className='py-3'>ABC Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark-fill cursor ${mode ? 'text-warning' : 'text-dark'}`}></a></td>
+
                         </tr>
                         <tr>
                             <td className='py-3'>3</td>
                             <td className='py-3'>Sat Mar 13 2024 10:15:20</td>
                             <td className='py-3'>Tue Mar 16 2024 10:15:20</td>
                             <td className='py-3'>XYZ Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
+
                         </tr>
 
                         <tr>
@@ -61,11 +55,11 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Sun Mar 14 2024 12:45:30</td>
                             <td className='py-3'>Wed Mar 17 2024 12:45:30</td>
                             <td className='py-3'>Tech Innovations Inc.</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
+
                         </tr>
 
                         <tr>
@@ -73,11 +67,11 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Mon Mar 15 2024 09:00:00</td>
                             <td className='py-3'>Thu Mar 18 2024 09:00:00</td>
                             <td className='py-3'>Global Solutions Ltd.</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
+
                         </tr>
 
                         <tr>
@@ -85,11 +79,11 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Tue Mar 16 2024 18:20:15</td>
                             <td className='py-3'>Fri Mar 19 2024 18:20:15</td>
                             <td className='py-3'>InnovateX Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark-fill cursor ${mode ? 'text-warning' : 'text-dark'}`}></a></td>
+
                         </tr>
 
                         <tr>
@@ -97,11 +91,11 @@ export default function ClientOngoingTable() {
                             <td className='py-3'>Wed Mar 17 2024 14:55:50</td>
                             <td className='py-3'>Sat Mar 20 2024 14:55:50</td>
                             <td className='py-3'>TechSolutions LLC</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                            
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor">More Info</a>
                             </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
+
                         </tr>
                     </tbody>
                 </table>

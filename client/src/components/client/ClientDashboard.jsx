@@ -1,5 +1,8 @@
-import React from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { setMode } from '../../globalstate/slices/modeSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function ClientDashboard() {
 
@@ -11,7 +14,29 @@ export default function ClientDashboard() {
     const realPathName = pathname.slice(1)
 
     console.log(realPathName);
-    
+
+    let mode = useSelector((state) => state.mode)
+
+    useEffect(() => {
+        let html = document.documentElement;
+        let modeCheckBox = document.getElementById('checkbox')
+        if (mode) {
+            html.setAttribute('data-bs-theme', 'dark');
+            modeCheckBox.checked = true;
+
+        } else {
+            html.setAttribute('data-bs-theme', '');
+            modeCheckBox.checked = false;
+
+        }
+    }, [mode])
+
+    let dispatchMode = useDispatch()
+
+    function modeChange() {
+        dispatchMode(setMode(!mode))
+    }
+
 
     return (
         <>
@@ -47,9 +72,9 @@ export default function ClientDashboard() {
                                     </div>
                                 </div>
                                 <div className="container-fluid mb-3">
-                                    <div className='profile myshadow bg-white w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center'>
+                                    <div className={`profile myshadow w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ':'bg-white'}`}>
                                         <div className='profile-img'>
-                                            <i className="bi bi-person-circle display-4"></i>
+                                            <i className="bi bi-person-circle display-6"></i>
                                         </div>
 
                                         <div className='profile-info'>
@@ -69,7 +94,7 @@ export default function ClientDashboard() {
                                 <div className='d-flex justify-content-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}
                                     <div>
-                                        <input type="checkbox" className="checkbox" id="checkbox" />
+                                        <input type="checkbox" className="checkbox" id="checkbox" onClick={modeChange}/>
                                         <label htmlFor="checkbox" className="checkbox-label">
                                             <i className="fas fa-moon bi bi-moon-fill"></i>
                                             <i className="fas fa-sun bi bi-sun-fill"></i>

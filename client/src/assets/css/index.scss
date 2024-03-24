@@ -1,10 +1,20 @@
 @use './clientform';
+@use './darkmode';
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
     --our-color1: #d12030;
     --our-color2: #19468b;
+}
+
+
+$shadow-1: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+$shadow-2: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+$bgcolor: #f8f9fa;
+
+@mixin shadowmixin($shadow) {
+    box-shadow: $shadow;
 }
 
 * {
@@ -35,7 +45,7 @@
 
 .dashboard {
 
-    background-color: #f8f9fa;
+    background-color: $bgcolor;
 
     .nav-link {
         font-weight: 500;
@@ -44,11 +54,11 @@
         margin: 5px 0;
 
         i {
-            font-size: 14px;
+            font-size: 1.1rem;
             padding: 6px 9px;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
             border-radius: 8px;
             margin-right: 5px;
+            @include shadowmixin($shadow: $shadow-2)
         }
 
         &.active {
@@ -87,7 +97,7 @@
 }
 
 .myshadow {
-    box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+    @include shadowmixin($shadow: $shadow-1)
 }
 
 
@@ -97,9 +107,9 @@
 }
 
 .checkbox-label {
-    background-color: #111;
-    width: 50px;
-    height: 26px;
+    background-color: white;
+    width: 60px;
+    height: 30px;
     border-radius: 50px;
     position: relative;
     padding: 5px;
@@ -107,6 +117,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: $shadow-2;
 }
 
 .fa-moon {
@@ -118,16 +129,28 @@
 }
 
 .checkbox-label .ball {
-    background-color: #fff;
-    width: 22px;
-    height: 22px;
+    background-color: #212529;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    left: 2px;
-    top: 2px;
+    left: 5px;
+    top: 50%;
     border-radius: 50%;
     transition: transform 0.2s linear;
+    transform: translate(0%, -50%);
 }
 
 .checkbox:checked+.checkbox-label .ball {
     transform: translateX(24px);
+}
+
+.modal[aria-labelledby~="bids_value"] {
+    table tbody {
+        tr:nth-child(1) td {
+            background-color: var(--bs-success);
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+    }
 }
