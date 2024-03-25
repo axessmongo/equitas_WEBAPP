@@ -11,6 +11,11 @@ app.use(express.json());
 app.use(cors());
 app.use(mainRouter);
 
+app.get("/", (req, res) => {
+  console.log('Request received at root path');
+  res.send('Welcome to equitas bank');
+});
+
 mongoose
   .connect(process.env.MONGODB_URL, {
   })
