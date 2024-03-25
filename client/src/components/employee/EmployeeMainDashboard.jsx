@@ -72,6 +72,11 @@ export default function EmployeeDashboard() {
                                                     <i className="bi bi-coin"></i> List of Bids
                                                 </NavLink>
                                             </li>
+                                            <li className="nav-item">
+                                                <NavLink to={'employeeawards'} className="nav-link">
+                                                    <i className="bi bi-award"></i> Employee Awards
+                                                </NavLink>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

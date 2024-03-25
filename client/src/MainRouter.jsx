@@ -14,6 +14,7 @@ import EmployeeUserValidation from './components/employee/EmployeeUserValidation
 import EmployeeCreateProject from './components/employee/EmployeeCreateProject';
 import ListofBids from './components/employee/ListofBids';
 import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
+import EmployeeAward from './components/employee/EmployeeAward';
 
 export default function MainRouter() {
     return (
@@ -34,6 +35,7 @@ export default function MainRouter() {
                         <Route path='employeecreateproject' element={<EmployeeCreateProject />} />
                         <Route path='employeeongoing' element={<EmployeeOngoingTable />} />
                         <Route path='listofbids' element={<ListofBids/>} />
+                        <Route path='employeeawards' element={<EmployeeAward/>} />
                     </Route>
                 </Routes>
             </BrowserRouter>

@@ -43,6 +43,27 @@ $bgcolor: #f8f9fa;
     cursor: pointer;
 }
 
+.btn-close {
+    box-shadow: none !important;
+    background: none;
+    opacity: .8;
+}
+
+button.btn-close::before {
+    content: "\F659";
+    color: var(--bs-danger);
+    display: inline-block;
+    font-family: "bootstrap-icons" !important;
+    font-style: normal;
+    font-weight: 900;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -0.125em;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+}
+
 .dashboard {
 
     background-color: $bgcolor;
