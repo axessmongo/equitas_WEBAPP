@@ -20,14 +20,14 @@ export default function EmployeeDashboard() {
         let html = document.documentElement;
         if (mode) {
             html.setAttribute('data-bs-theme', 'dark')
-        }else{
+        } else {
             html.setAttribute('data-bs-theme', '')
         }
     }, [mode])
 
     let dispatchMode = useDispatch()
 
-    function modeChange(){
+    function modeChange() {
         dispatchMode(setMode(!mode))
     }
 
@@ -76,7 +76,7 @@ export default function EmployeeDashboard() {
                                     </div>
                                 </div>
                                 <div className="container-fluid mb-3">
-                                    <div className={`profile myshadow w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ':'bg-white'}`}>
+                                    <div className={`profile myshadow w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ' : 'bg-white'}`}>
                                         <div className='profile-img'>
                                             <i className="bi bi-person-circle display-6"></i>
                                         </div>
@@ -98,7 +98,7 @@ export default function EmployeeDashboard() {
                                 <div className='d-flex justify-content-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}
                                     <div>
-                                        <input type="checkbox" className="checkbox" id="checkbox" onClick={modeChange}/>
+                                        <input type="checkbox" className="checkbox" id="checkbox" onClick={modeChange} />
                                         <label htmlFor="checkbox" className="checkbox-label">
                                             <i className="fas fa-moon bi bi-moon-fill"></i>
                                             <i className="fas fa-sun bi bi-sun-fill"></i>

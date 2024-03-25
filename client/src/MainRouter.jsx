@@ -9,11 +9,11 @@ import ClientSelectedTable from './components/client/ClientSelectedTable';
 import ClientBidsTable from './components/client/ClientBidsTable';
 import Register from './components/client/Register';
 import ForgotPassword from './components/client/ForgotPassword';
-import EmployeeDashboard from './components/employee/EmployeeDashboard';
 import EmployeeOngoingTable from './components/employee/EmployeeOngoingTable';
 import EmployeeUserValidation from './components/employee/EmployeeUserValidation';
 import EmployeeCreateProject from './components/employee/EmployeeCreateProject';
 import ListofBids from './components/employee/ListofBids';
+import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 
 export default function MainRouter() {
     return (
