@@ -9,7 +9,7 @@ const ForgotPassword = ({ match }) => {
   useEffect(() => {
     const verifyForgetPassword = async () => {
       try {
-        const response = await axios.get(`${id}/${token}`);
+        const response = await axios.get(`/${id}/${token}`);
         if (response.data.message === 'invalid link') {
           setVerificationStatus('invalid');
         } else {
