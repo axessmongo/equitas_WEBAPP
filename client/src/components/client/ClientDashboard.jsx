@@ -78,7 +78,7 @@ export default function ClientDashboard() {
                                         </div>
 
                                         <div className='profile-info'>
-                                            <p className='lead fs-6 fw-semibold m-0 color2'>Sundar1007</p>
+                                            <p className='lead fs-6 fw-semibold m-0'>Sundar1007</p>
                                         </div>
                                         <div className='mt-3'>
                                             <button className="btn btn-outline-primary fs-6">

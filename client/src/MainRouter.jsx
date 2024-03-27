@@ -15,6 +15,7 @@ import EmployeeCreateProject from './components/employee/EmployeeCreateProject';
 import ListofBids from './components/employee/ListofBids';
 import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
+import ClientRegister from './components/client/ClientRegister';
 
 export default function MainRouter() {
     return (
@@ -22,6 +23,7 @@ export default function MainRouter() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<ClientLogin />} />
+                    <Route path='/clientregister' element={<ClientRegister />} />
                     <Route path='/check' element={<Check />} />
                     <Route path='/clientdashboard' element={<ClientDashboard />}>
                         <Route path='ongoing' element={<ClientOngoingTable />} />

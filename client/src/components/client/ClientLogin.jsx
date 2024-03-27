@@ -100,6 +100,11 @@ export default function ClientLogin() {
                     <input type="submit" value="Login" className="login100-form-btn" />
                   </div>
                   <div className="text-center p-t-12 pt-3">
+                    <Link className="txt2 cursor" to={'/clientregister'}>
+                      New User / Signup?
+                    </Link>
+                  </div>  
+                  <div className="text-center p-t-12 pt-3">
                     <span className="txt1">Forgot </span>
                     <Link className="txt2 cursor" onClick={() => setForgotModalShow(true)}>
                       Username / Password?
