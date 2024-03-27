@@ -31,7 +31,7 @@ export const ClientForm = () => {
                         }}
 
                         onSubmit={(values, { setSubmitting }) => {
-                            axios.post('YOUR_API_ENDPOINT', values) // Replace 'YOUR_API_ENDPOINT' with your actual endpoint
+                            axios.post('', values) // Replace 'YOUR_API_ENDPOINT' with your actual endpoint
                                 .then(response => {
                                     console.log(response.data); // Log the response data
                                     // Do something with the response if needed
