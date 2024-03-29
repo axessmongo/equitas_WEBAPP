@@ -17,6 +17,11 @@ $bgcolor: #f8f9fa;
     box-shadow: $shadow;
 }
 
+
+.myshadow {
+    @include shadowmixin($shadow: $shadow-1)
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -117,9 +122,6 @@ button.btn-close::before {
     }
 }
 
-.myshadow {
-    @include shadowmixin($shadow: $shadow-1)
-}
 
 
 .checkbox {
