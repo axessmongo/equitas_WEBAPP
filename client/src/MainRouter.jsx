@@ -18,6 +18,7 @@ import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
 
 export default function MainRouter() {
+
     return (
         <>
             <BrowserRouter>
@@ -26,7 +27,7 @@ export default function MainRouter() {
                     <Route path='/clientregister' element={<ClientRegister />} />
                     <Route path='/check' element={<Check />} />
                     <Route path='/clientdashboard' element={<ClientDashboard />}>
-                        <Route path='ongoing' element={<ClientOngoingTable />} />
+                        <Route index path='ongoing' element={<ClientOngoingTable />} />
                         <Route path='clientselected' element={<ClientSelectedTable />} />
                         <Route path='clientbids' element={<ClientBidsTable />} />
                     </Route>

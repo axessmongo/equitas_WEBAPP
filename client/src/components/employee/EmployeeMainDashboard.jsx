@@ -74,7 +74,7 @@ export default function EmployeeDashboard() {
                                             </li>
                                             <li className="nav-item">
                                                 <NavLink to={'employeeawards'} className="nav-link">
-                                                    <i className="bi bi-award"></i> Employee Awards
+                                                    <i className="bi bi-award"></i> Awarded Projects
                                                 </NavLink>
                                             </li>
                                         </ul>
