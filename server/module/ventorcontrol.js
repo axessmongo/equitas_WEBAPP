@@ -62,7 +62,7 @@ const RegisterPostMethod = async (req, res) => {
     await newToken.save();
 
     // Send email to user
-    await sendEmailToVendor(email,res);
+    await sendEmailToVendor(email);
 
     // Return success response
     return res.status(200).json({
@@ -204,6 +204,7 @@ const setNewPassword = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 module.exports = {
   RegisterPostMethod,

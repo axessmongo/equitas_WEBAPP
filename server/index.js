@@ -14,20 +14,25 @@ app.use(cors());
 app.use(mainRouter);
 
 
-
 app.get("/", (req, res) => {
   console.log('Request received at root path');
   res.send('Welcome to equitas bank');
 });
 
-mongoose.connect(MONGODB_URL,)
-  .then(() => {
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+(async () => {
+  try {
+    await mongoose.connect(MONGODB_URL);
     console.log('Connected to MongoDB');
     app.listen(PORT, () => {
       console.log('Server is listening on port ' + PORT);
     });
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error('Error connecting to MongoDB:', error);
     process.exit(1); // Exit the process with an error code
-  });
+  }
+})();
