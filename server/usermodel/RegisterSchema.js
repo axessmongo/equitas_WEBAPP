@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
-  fname: {
+  fullname: {
     type: String,
     required: true,
   },
   phone: {
     type: String,
-    required: true,
   },
   company: String,
   address: String,

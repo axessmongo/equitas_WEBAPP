@@ -7,7 +7,7 @@ const Sendmailer = require("../utils/Sendmailer.js");
 
 const RegisterPostMethod = async (req, res) => {
   const {
-    fname,
+    fullname,
     phone,
     company,
     address,
@@ -36,7 +36,7 @@ const RegisterPostMethod = async (req, res) => {
 
     // Create a new user instance
     const newUser = new RegisterSchema({
-      fname,
+      fullname,
       phone,
       company,
       address,
@@ -62,7 +62,7 @@ const RegisterPostMethod = async (req, res) => {
     await newToken.save();
 
     // Send email to user
-    await sendEmailToVendor(email);
+    await sendEmailToVendor(email,res);
 
     // Return success response
     return res.status(200).json({

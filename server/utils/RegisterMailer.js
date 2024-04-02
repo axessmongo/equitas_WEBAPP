@@ -9,7 +9,7 @@ const sendEmailToventor = async (email, resetToken) => {
         port: 465, // Use port 465 for SMTP over SSL/TLS
         secure: true, // Use SSL
         auth: {
-            user: process.env.user, // Wrap email in quotes
+            user: process.env.user,
             pass: process.env.password,
         },
       });
@@ -18,7 +18,7 @@ const sendEmailToventor = async (email, resetToken) => {
         from: process.env.user, // Specify a valid email address
         to: email,
         subject: "Equitas bank",
-        text:"<b>Thank you for registering for equitas bank team will be conatct soon"
+        text:"Thank you for registering for equitas bank team will be contact soon "
       };
   
       await transporter.sendMail(mailOptions);
