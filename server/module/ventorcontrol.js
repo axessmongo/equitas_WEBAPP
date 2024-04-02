@@ -1,13 +1,29 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const RegisterSchema = require("../usermodel/RegisterSchema.js");
+const sendEmailToVendor =require("../utils/RegisterMailer.js")
 const TokenSchema = require("../usermodel/TokenSchema.js");
 const Sendmailer = require("../utils/Sendmailer.js");
 
 const RegisterPostMethod = async (req, res) => {
-  const { fname, lname, email, password } = req.body;
+  const {
+    fname,
+    phone,
+    company,
+    address,
+    city,
+    state,
+    pin,
+    pan,
+    ifsccode,
+    accountnum,
+    gst,
+    email,
+    password,
+  } = req.body;
 
   try {
+    // Check if user with provided email already exists
     const existingUser = await RegisterSchema.findOne({ email });
 
     if (existingUser) {
@@ -15,18 +31,29 @@ const RegisterPostMethod = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+   
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user instance
     const newUser = new RegisterSchema({
       fname,
-      lname,
+      phone,
+      company,
+      address,
+      city,
+      state,
+      pin,
+      pan,
+      ifsccode,
+      accountnum,
+      gst,
       email,
       password: hashedPassword,
     });
 
     const savedUser = await newUser.save();
 
+    // Generate a new token
     const newToken = new TokenSchema({
       userId: savedUser._id,
       token: crypto.randomBytes(32).toString("hex"),
@@ -34,10 +61,14 @@ const RegisterPostMethod = async (req, res) => {
 
     await newToken.save();
 
+    // Send email to user
+    await sendEmailToVendor(email);
+
+    // Return success response
     return res.status(200).json({
       message: "User saved successfully",
       data: savedUser,
-      user: newToken,
+      token: newToken,
     });
   } catch (error) {
     console.error(error);
@@ -46,6 +77,8 @@ const RegisterPostMethod = async (req, res) => {
     });
   }
 };
+
+
 
 const loginpostmethod = async (req, res) => {
   const { email, password } = req.body;
@@ -93,7 +126,6 @@ const forgetpassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    
     const user = await RegisterSchema.findOne({ email });
 
     if (!user) {
@@ -131,13 +163,13 @@ const verfiedForgetPassword = async (req, res) => {
     if (!token) return res.status(400).send({ message: "Invalid link" });
 
     res.status(200).json({
-      message:"invalid link "
-    })
+      message: "invalid link ",
+    });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
-       
+
 //setNewpassword
 
 const setNewPassword = async (req, res) => {

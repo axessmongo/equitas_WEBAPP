@@ -6,7 +6,7 @@ const {
   forgetpassword,
   verfiedForgetPassword,
   setNewPassword,
-} = require('../module/control');
+} = require('../module/ventorcontrol');
 
 router.post('/api/register', RegisterPostMethod);
 router.post('/api/login', loginpostmethod);

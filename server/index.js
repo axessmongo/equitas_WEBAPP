@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const PORT = process.env.PORT; // Default to port 3000 if PORT is not set in environment
+const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
 
 const app = express();
@@ -13,12 +13,14 @@ app.use(express.json());
 app.use(cors());
 app.use(mainRouter);
 
+
+
 app.get("/", (req, res) => {
   console.log('Request received at root path');
   res.send('Welcome to equitas bank');
 });
 
-mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URL,)
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => {

@@ -3,18 +3,30 @@ const { Schema } = mongoose;
 
 const blogSchema = new Schema({
   fname: {
-    type: "string",
+    type: String,
+    required: true,
   },
-  lname: {
-    type: "string",
+  phone: {
+    type: String,
+    required: true,
   },
+  company: String,
+  address: String,
+  city: String,
+  state: String,
+  pin: String,
+  pan: String,
+  ifsccode: String,
+  accountnum: String,
+  gst: String,
   email: {
-    type: "string",
+    type: String,
     required: true,
     unique: true,
   },
   password: {
-    type: "string",
+    type: String,
+    required: true,
   },
   verified: {
     type: Boolean,
