@@ -8,7 +8,7 @@ const MONGODB_URL = process.env.MONGODB_URL;
 
 const app = express();
 const mainRouter = require("./Router/ventorRoute.js");
-const appRouter = require("./Router/route.js");
+const appRouter = require("./Router/employerRoute.js");
 
 app.use(express.json());
 app.use(cors());

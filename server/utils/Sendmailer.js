@@ -8,7 +8,7 @@ const Sendmailer = async (email, resetToken) => {
       port: 465, // Use port 465 for SMTP over SSL/TLS
       secure: true, // Use SSL
       auth: {
-        user: process.env.user, // Wrap email in quotes
+        user: process.env.user, 
         pass: process.env.password,
       },
     });
