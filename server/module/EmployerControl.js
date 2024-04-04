@@ -17,20 +17,14 @@ const createProject = async (req, res) => {
   } = req.body;
 
   try {
-    const project = await EmployerSchema.create({
-      projectOnTime,
+    const project = await Project.create({
       projectName,
-      projectCloseTime,
+      projectOnTime,
+      projectCloseTime, // Assuming this can be undefined/null if not provided
       projectCompanyName,
       projectArea,
       projectDescription,
     });
-
-    if (!project) {
-      return res.status(400).json({
-        message: "Project not created",
-      });
-    }
 
     res.status(200).json({
       message: "Project created successfully",
