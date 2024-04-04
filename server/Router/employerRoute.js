@@ -1,8 +1,12 @@
-const express = require('express');
+// employerRoutes.js
+
+const express = require("express");
 const router = express.Router();
-const {Registeruser} =require("../module/EmployerControl")
+const employerController = require("../module/EmployerControl");
 
-router.get("/api/detail",Registeruser )
-
+router.post("/api/project", employerController.createProject);
+router.get("/api/userdetails", employerController.getUsersDetails);
+router.post("/api/sendApprovalMail", employerController.sendApprovalMail);
+router.get("/:id/verify/:token", employerController.verifyToken);
 
 module.exports = router;

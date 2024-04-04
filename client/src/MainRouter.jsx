@@ -16,32 +16,35 @@ import ListofBids from './components/employee/ListofBids';
 import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
+// import CheckMail from './components/CheckMail';
 
 export default function MainRouter() {
 
+  
     return (
+
         <>
-            <BrowserRouter>
-                <Routes>
-                    <Route index element={<ClientLogin />} />
-                    <Route path='/clientregister' element={<ClientRegister />} />
-                    <Route path='/check' element={<Check />} />
-                    <Route path='/clientdashboard' element={<ClientDashboard />}>
-                        <Route index path='ongoing' element={<ClientOngoingTable />} />
-                        <Route path='clientselected' element={<ClientSelectedTable />} />
-                        <Route path='clientbids' element={<ClientBidsTable />} />
-                    </Route>
-                    <Route path="/register" element={<Register />} />
-                    <Route path='/forgotPassword' element={<ForgotPassword />} />
-                    <Route path='/employeedashboard' element={<EmployeeDashboard />}>
-                        <Route path='employeeuservalidation' element={<EmployeeUserValidation />} />
-                        <Route path='employeecreateproject' element={<EmployeeCreateProject />} />
-                        <Route path='employeeongoing' element={<EmployeeOngoingTable />} />
-                        <Route path='listofbids' element={<ListofBids/>} />
-                        <Route path='employeeawards' element={<EmployeeAward/>} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<ClientLogin />} />
+                <Route path='/clientregister' element={<ClientRegister />} />
+                <Route path='/check' element={<Check />} />
+                <Route path='/clientdashboard' element={<ClientDashboard />}>
+                    <Route index element={<ClientOngoingTable />} />
+                    <Route path='clientselected' element={<ClientSelectedTable />} />
+                    <Route path='clientbids' element={<ClientBidsTable />} />
+                </Route>
+                <Route path="/register" element={<Register />} />
+                <Route path='/forgotPassword' element={<ForgotPassword />} />
+                <Route path='/employeedashboard' element={<EmployeeDashboard />}>
+                    <Route path='employeeuservalidation' element={<EmployeeUserValidation />} />
+                    <Route path='employeecreateproject' element={<EmployeeCreateProject />} />
+                    <Route path='employeeongoing' element={<EmployeeOngoingTable />} />
+                    <Route path='listofbids' element={<ListofBids />} />
+                    <Route path='employeeawards' element={<EmployeeAward />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </>
     )
 }

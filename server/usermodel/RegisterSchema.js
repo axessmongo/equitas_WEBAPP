@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const blogSchema = new Schema({
   fullname: {
     type: String,
-    required: true,
+  
   },
   phone: {
     type: String,
@@ -23,10 +23,7 @@ const blogSchema = new Schema({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
+
   verified: {
     type: Boolean,
     default: false,
