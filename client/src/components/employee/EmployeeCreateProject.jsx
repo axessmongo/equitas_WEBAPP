@@ -9,7 +9,7 @@ export default function EmployeeCreateProject() {
     const createProject = async (datas) => {
         console.log(datas);
         try {
-            const res = await axios.post('http://localhost:4000/api/project', { datas });
+            const res = await axios.post('http://localhost:4000/api/project', datas);
             if (res.status === 200) {
                 console.log("project is created successfully");
             } else if (res.status === 404) {
@@ -27,8 +27,8 @@ export default function EmployeeCreateProject() {
             <Formik
                 initialValues={{
                     projectname: '',
-                    opendate: '',
-                    closedata: '',
+                    opentime: '',
+                    closetime: '',
                     projectarea: '',
                     company: '',
                     description: ''
@@ -38,11 +38,11 @@ export default function EmployeeCreateProject() {
                     if (!values.projectname) {
                         errors.projectname = 'Project Name is required';
                     }
-                    if (!values.opendate) {
-                        errors.opendate = 'Project on Time is required';
+                    if (!values.opentime) {
+                        errors.opentime = 'Project on Time is required';
                     }
-                    if (!values.closedata) {
-                        errors.closedata = 'Project Close Time is required';
+                    if (!values.closetime) {
+                        errors.closetime = 'Project Close Time is required';
                     }
                     if (!values.projectarea) {
                         errors.projectarea = 'Project Area is required';
@@ -85,34 +85,34 @@ export default function EmployeeCreateProject() {
 
                             {/* Project on Time */}
                             <div className="form-group  col-md-6">
-                                <label className="mb-2" htmlFor="opendate">Project on Time:</label>
+                                <label className="mb-2" htmlFor="opentime">Project on Time:</label>
                                 <input
                                     type="datetime-local"
                                     className="form-control shadow-none"
-                                    id="opendate"
-                                    name="opendate"
+                                    id="opentime"
+                                    name="opentime"
                                     required=""
-                                    value={values.opendate}
+                                    value={values.opentime}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {touched.opendate && errors.opendate && <div className="text-danger">{errors.opendate}</div>}
+                                {touched.opentime && errors.opentime && <div className="text-danger">{errors.opentime}</div>}
                             </div>
 
                             {/* Project Close Time */}
                             <div className="form-group  col-md-6">
-                                <label className="mb-2" htmlFor="closedata">Project Close Time:</label>
+                                <label className="mb-2" htmlFor="closetime">Project Close Time:</label>
                                 <input
                                     type="datetime-local"
                                     className="form-control shadow-none"
-                                    id="closedata"
-                                    name="closedata"
+                                    id="closetime"
+                                    name="closetime"
                                     required=""
-                                    value={values.closedata}
+                                    value={values.closetime}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                                {touched.closedata && errors.closedata && <div className="text-danger">{errors.closedata}</div>}
+                                {touched.closetime && errors.closetime && <div className="text-danger">{errors.closetime}</div>}
                             </div>
 
                             {/* Project Area */}

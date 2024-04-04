@@ -30,7 +30,7 @@ export default function MainRouter() {
                 <Route path='/clientregister' element={<ClientRegister />} />
                 <Route path='/check' element={<Check />} />
                 <Route path='/clientdashboard' element={<ClientDashboard />}>
-                    <Route index element={<ClientOngoingTable />} />
+                    <Route path='ongoing' element={<ClientOngoingTable />} />
                     <Route path='clientselected' element={<ClientSelectedTable />} />
                     <Route path='clientbids' element={<ClientBidsTable />} />
                 </Route>
