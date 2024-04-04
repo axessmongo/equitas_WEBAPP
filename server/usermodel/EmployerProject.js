@@ -1,29 +1,34 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+// Define the schema
 const projectSchema = new Schema({
-  projectName: {
+  projectname: {
     type: String,
-   
+    required: true,
   },
-  projectOnTime: {
-    type: String,
-  },
-  projectCloseTime: {
+  opendate: {
     type: String,
   },
-  projectCompanyName: {
+  closetime: {
+    type: String,
+
+  },
+  company:{
     type: String,
   },
-  projectArea: {
+  
+  projectarea: {
     type: String,
+    
   },
-  projectDescription: {
+  description: {
     type: String,
+    
   },
 });
 
 // Create and export the model
 const Project = mongoose.model("Project", projectSchema);
 
-module.exports =Project
+module.exports = Project;

@@ -8,22 +8,22 @@ const ApprovedMailer = require("../utils/Approvedmailer.js");
 
 const createProject = async (req, res) => {
   const {
-    projectOnTime,
-    projectCloseTime,
-    projectCompanyName,
-    projectArea,
-    projectDescription,
-    projectName
+    projectname,
+    opendate,
+    closetime,
+    projectarea,
+    description,
+    company,
   } = req.body;
 
   try {
-    const project = await Project.create({
-      projectName,
-      projectOnTime,
-      projectCloseTime, // Assuming this can be undefined/null if not provided
-      projectCompanyName,
-      projectArea,
-      projectDescription,
+    const project = await EmployerSchema.create({
+      projectname,
+      opendate,
+      closetime,
+      projectarea,
+      description,
+      company,
     });
 
     res.status(200).json({
