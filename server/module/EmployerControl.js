@@ -7,23 +7,24 @@ const crypto = require("crypto");
 const ApprovedMailer = require("../utils/Approvedmailer.js");
 
 const createProject = async (req, res) => {
-  const { projectname, opendate, closedate, projectarea, description } =
-    req.body;
+  const {
+    projectname,
+    opendate,
+    closetime,
+    projectarea,
+    description,
+    company,
+  } = req.body;
 
   try {
     const project = await EmployerSchema.create({
       projectname,
       opendate,
-      closedate,
+      closetime,
       projectarea,
       description,
+      company,
     });
-
-    if (!project) {
-      return res.status(400).json({
-        message: "Project not created",
-      });
-    }
 
     res.status(200).json({
       message: "Project created successfully",

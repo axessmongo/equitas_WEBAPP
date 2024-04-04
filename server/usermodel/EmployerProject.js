@@ -3,19 +3,22 @@ const { Schema } = mongoose;
 
 // Define the schema
 const projectSchema = new Schema({
-  projectName: {
+  projectname: {
     type: String,
     required: true,
   },
-  openDate: {
-    type: Date,
-    default: Date.now,
+  opendate: {
+    type: String,
   },
-  closeDate: {
-    type: Date,
-    
+  closetime: {
+    type: String,
+
   },
-  projectArea: {
+  company:{
+    type: String,
+  },
+  
+  projectarea: {
     type: String,
     
   },

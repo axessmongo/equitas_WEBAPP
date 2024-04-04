@@ -30,7 +30,7 @@ function CheckMail() {
                 ) : (
                     <div>
                         <p>{message}</p>
-                        <Link to="/clientDashboard">ClientDashboard</Link>
+                        <Link to="/Login">Login</Link>
                     </div>
                 )}
             </div>
