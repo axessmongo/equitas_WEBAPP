@@ -42,8 +42,8 @@ export default function MainRouter() {
                     <Route path='employeeongoing' element={<EmployeeOngoingTable />} />
                     <Route path='listofbids' element={<ListofBids />} />
                     <Route path='employeeawards' element={<EmployeeAward />} />
-                    <Route path="/verify/:id/verify/:token" element={<CheckMail/>} />
                 </Route>
+                <Route path="/verify/:id/verify/:token" element={<CheckMail/>} />
             </Routes>
         </BrowserRouter>
     </>

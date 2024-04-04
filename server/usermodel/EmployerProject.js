@@ -7,19 +7,24 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  openDate: {
+  projectOnTime: {
     type: Date,
     default: Date.now,
   },
-  closeDate: {
+  projectCloseTime: {
     type: Date,
     
   },
+
+  projectCompanyName:{
+    type: String,
+  },
+  
   projectArea: {
     type: String,
     
   },
-  description: {
+  projectDescription: {
     type: String,
     
   },
