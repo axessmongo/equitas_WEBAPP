@@ -66,7 +66,7 @@ const sendApprovalMail = async (req, res) => {
     const user = await RegisterSchema.findOne({ email });
 
     console.log(user);
-    
+
     if (!user) {
       console.error("User not found");
       return res.status(404).json({ message: "User not found" });

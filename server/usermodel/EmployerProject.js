@@ -4,15 +4,12 @@ const { Schema } = mongoose;
 const blogSchema = new Schema({
   projectname: {
     type: "string",
-    
   },
   opendate: {
-    type: "string",
-   
+    type: date,
   },
   closedate: {
-    type: "string",
- 
+    type: date,
   },
   projectarea: {
     type: "string",
