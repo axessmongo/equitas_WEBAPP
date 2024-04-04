@@ -62,12 +62,12 @@ const sendApprovalMail = async (req, res) => {
   const { email, user_id } = req.body;
 
   try {
-    const user = await RegisterSchema.findOne({ email, _id: user_id });
+    const user = await RegisterSchema.findOne({ email });
 
-    // if (!user) {
-    //   console.error("User not found");
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+     if (!user) {
+       console.error("User not found");
+     return res.status(404).json({ message: "User not found" });
+    }
 
     const existingToken = await TokenSchema.findOne({ userId: user._id });
     if (existingToken) {
