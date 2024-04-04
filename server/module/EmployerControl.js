@@ -38,6 +38,32 @@ const createProject = async (req, res) => {
   }
 };
 
+//ongoing project 
+
+
+const showingproject = async (req, res,) => {
+  try {
+    const project = await EmployerSchema.find({})
+
+    if(!project) {
+      return(res.status(404).json({
+        message: 'Project not found'
+      }))
+    }
+
+    res.status(200).json({
+      message: 'Project gets updated',
+      data: project
+    })
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error getting data project",
+    })
+  }
+}
+
 const getUsersDetails = async (req, res) => {
   try {
     const users = await RegisterSchema.find({});
@@ -126,6 +152,7 @@ const verifyToken = async (req, res) => {
 
 module.exports = {
   createProject,
+  showingproject,
   getUsersDetails,
   sendApprovalMail,
   verifyToken,

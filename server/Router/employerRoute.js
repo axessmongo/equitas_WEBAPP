@@ -5,6 +5,7 @@ const router = express.Router();
 const employerController = require("../module/EmployerControl");
 
 router.post("/api/project", employerController.createProject);
+router.get("/api/showproject",employerController.showingproject);
 router.get("/api/userdetails", employerController.getUsersDetails);
 router.post("/api/sendapprovalmail", employerController.sendApprovalMail);
 router.get("/:id/verify/:token", employerController.verifyToken);
