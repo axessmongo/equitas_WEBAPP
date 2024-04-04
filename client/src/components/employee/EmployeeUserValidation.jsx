@@ -1,19 +1,70 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import UserValidationModal from './modal/UserValidationModal';
 
 export default function EmployeeUserValidation() {
+
+    const [userData, setUserData] = useState([]);
+    const [userModalShow, setUserModalShow] = useState(false);
+    const [userModalData, setUserModalData] = useState([])
+
+    const userValidateData = async () => {
+        try {
+            const res = 'http://localhost:4000/api/userdetails';
+            const response = await axios.get(res);
+            setUserData(response.data.data);
+            console.log(response.data.data);
+        } catch (error) {
+            console.error('Error fetching data:', error.message);
+        }
+    }
+
+    useEffect(() => {
+        userValidateData();
+    }, []);
+
+
+    const approveUser = async (email) => {
+        try {
+            const res = `http://localhost:4000/api/sendapprovalmail`;
+            const response = await axios.post(res, { email }); // Passing mail parameter
+            if (response.status === 200) {
+                console.log('Approval email sent successfully');
+                // Handle success as needed
+            } else {
+                console.error('Approval email sending failed:', response.data.message);
+                // Handle failure as needed
+            }
+        } catch (error) {
+            console.error('Error sending approval email:', error.message);
+            // Handle error
+        }
+    }
+
+    const vsd3131 = () => {
+        axios.post("http://localhost:4000/api/sendapprovalmail",)
+    }
+
+
+
+
+
+
+    const rejectUser = async (id, mail) => {
+        console.log(id);
+        // try {
+        //     const res = 'http://localhost:4000/api/userdetails';
+        //     const response = await axios.get(res);
+        //     setUserData(response.data.data);
+        //     console.log(response.data.data);
+        // } catch (error) {
+        //     console.error('Error fetching data:', error.message);
+        // }
+    }
+
+
     return (
         <>
-            {/* Number of approval section */}
-            {/* <div className="d-flex justify-content-end my-3">
-                <div className='myshadow bg-white rounded-3 px-3 py-3'>
-                    <div className="d-flex flex-column align-items-center">
-                        <p className='lead mb-0'>No of Pending</p>
-                        <p className='text-dark fs-4 fw-semibold mb-0'>2</p>
-                    </div>
-                </div>
-            </div> */}
-
-
             <div className='ourtable'>
                 <table className="table my-3">
                     <thead>
@@ -27,39 +78,27 @@ export default function EmployeeUserValidation() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className='py-3'>1</td>
-                            <td className='py-3'>win@corp.com</td>
-                            <td className='py-3'>91 29129 219XX</td>
-                            <td className='py-3'>Winxo corp</td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'>
-                                <i class="bi bi-x-circle-fill text-danger fs-4 me-3 cursor"></i>
-                                <i class="bi bi-check-circle-fill text-success fs-4 cursor"></i>
-                            </td>
-                        </tr>
+                        {userData.map((val, index) => (
+                            !val.verified && <tr key={index}>
+                                <td className='py-3'>{index + 1}</td>
+                                <td className='py-3'>{val.email}</td>
+                                <td className='py-3'>{val.phone}</td>
+                                <td className='py-3'>{val.company}</td>
+                                <td className='py-3'>
+                                    <a href="#" className="link-underline-dark text-decoration-none cursor" onClick={() => setUserModalShow(true) + setUserModalData(val)}>More Info</a>
+                                </td>
+                                <td className='py-3'>
+                                    <i className="bi bi-x-circle-fill text-danger fs-4 me-3 cursor" onClick={() => rejectUser()}></i>
+                                    <i className="bi bi-check-circle-fill text-success fs-4 cursor" onClick={() => approveUser(val.email)}></i>
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <td className='py-3'>2</td>
-                            <td className='py-3'>ABC@corp.com</td>
-                            <td className='py-3'>91 42342 4242XX</td>
-                            <td className='py-3'>ABC Corp</td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'>
-                                {/* <button className='btn btn-danger bi bi-x me-3'></button>
-                                <button className='btn btn-success bi bi-check'></button> */}
-
-                                <i class="bi bi-x-circle-fill text-danger fs-4 me-3 cursor"></i>
-                                <i class="bi bi-check-circle-fill text-success fs-4 cursor"></i>
-                            </td>
-                        </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
+            <UserValidationModal userData={userModalData} show={userModalShow}
+                onHide={() => setUserModalShow(false)} />
         </>
     )
 }

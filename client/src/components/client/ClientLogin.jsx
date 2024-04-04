@@ -14,7 +14,7 @@ export default function ClientLogin() {
   const navigate = useNavigate();
 
   function validateUser(values, resetForm) {
-    axios.post('http://localhost:4000/api/login', values)
+    axios.post('/api/login', values)
       .then(response => {
         console.log(response.data.data);
         alert('welcome to you');
