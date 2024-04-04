@@ -9,7 +9,7 @@ const ApprovedMailer = require("../utils/Approvedmailer.js");
 const createProject = async (req, res) => {
   const {
     projectname,
-    opendate,
+    opentime,
     closetime,
     projectarea,
     description,
@@ -19,7 +19,7 @@ const createProject = async (req, res) => {
   try {
     const project = await EmployerSchema.create({
       projectname,
-      opendate,
+      opentime,
       closetime,
       projectarea,
       description,
