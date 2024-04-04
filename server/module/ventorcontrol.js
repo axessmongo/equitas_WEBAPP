@@ -15,6 +15,7 @@ const RegisterPostMethod = async (req, res) => {
     pan,
     ifsccode,
     accountnum,
+    password,
     gst,
     email,
   } = req.body;
@@ -31,6 +32,7 @@ const RegisterPostMethod = async (req, res) => {
       pan,
       ifsccode,
       accountnum,
+      password,
       gst,
       email,
     });

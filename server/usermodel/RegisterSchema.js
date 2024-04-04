@@ -6,6 +6,9 @@ const blogSchema = new Schema({
     type: String,
   
   },
+  password:{
+    type: String,
+  },
   phone: {
     type: String,
   },
