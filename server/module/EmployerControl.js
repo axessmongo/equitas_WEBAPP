@@ -1,5 +1,4 @@
 // employerController.js
-
 const EmployerSchema = require("../usermodel/EmployerProject.js");
 const RegisterSchema = require("../usermodel/RegisterSchema.js");
 const TokenSchema = require("../usermodel/TokenSchema.js");
@@ -90,9 +89,7 @@ const sendApprovalMail = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const user = await RegisterSchema.findOne({ email });
-
-    console.log(user);
+    const user = await RegisterSchema.findOne({ email, });
 
     if (!user) {
       console.error("User not found");
@@ -128,6 +125,78 @@ const sendApprovalMail = async (req, res) => {
   }
 };
 
+
+const sendApprovalMail1 = async (req, res) => {
+  const id = req.params.id;
+  const updateuser = req.body;
+
+  try {
+    // Assuming RegisterSchema and TokenSchema are properly imported and defined
+
+    // Update user information
+    const updatedUser = await RegisterSchema.findByIdAndUpdate(
+      id,
+      updateuser,
+      { new: true }
+    );
+
+    // If user with provided id is not found, return 404
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "Could not find user with id",
+      });
+    }
+
+    // Find user by email
+    const user = await RegisterSchema.findOne({ email: updatedUser.email });
+
+    // If user with provided email is not found, return 404
+    if (!user) {
+      return res.status(404).json({
+        message: "Could not find user with email",
+      });
+    }
+
+    // Check if a token already exists for the user
+    const existingToken = await TokenSchema.findOne({ userId: user._id });
+    if (existingToken) {
+      console.error("Token already exists for the user");
+      return res.status(400).json({ message: "Token already exists for the user" });
+    }
+
+    // Generate a random token value
+    const tokenValue = crypto.randomBytes(36).toString("hex");
+
+    // Create a new token for the user
+    const newToken = new TokenSchema({
+      userId: user._id,
+      token: tokenValue,
+    });
+
+    // Save the token to the database
+    await newToken.save();
+
+    // Construct verification URL
+    const verificationUrl = `/verify/${user._id}/${tokenValue}`;
+
+    // Send verification email
+    await ApprovedMailer.sendVerificationEmail(user.email, verificationUrl);
+
+    // Send success response
+    res.status(200).json({
+      message: "Verification email sent successfully",
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error updating object by ID',
+      error: error.message,
+    });
+  }
+};
+
+
 const verifyToken = async (req, res) => {
   try {
     const user = await RegisterSchema.findOne({ _id: req.params.id });
@@ -155,5 +224,6 @@ module.exports = {
   showingproject,
   getUsersDetails,
   sendApprovalMail,
+  sendApprovalMail1,
   verifyToken,
 };

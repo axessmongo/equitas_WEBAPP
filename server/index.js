@@ -13,7 +13,7 @@ const appRouter = require("./Router/employerRoute.js");
 app.use(express.json());
 app.use(cors());
 app.use(mainRouter);
-app.use(appRouter)
+app.use(appRouter);
 
 
 app.get("/", (req, res) => {
@@ -38,3 +38,4 @@ app.use((err, req, res, next) => {
     process.exit(1); // Exit the process with an error code
   }
 })();
+
