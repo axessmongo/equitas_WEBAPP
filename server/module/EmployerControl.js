@@ -59,10 +59,10 @@ const getUsersDetails = async (req, res) => {
 };
 
 const sendApprovalMail = async (req, res) => {
-  const { email } = req.body;
+  const { email, user_id } = req.body;
 
   try {
-    const user = await RegisterSchema.findOne({ email });
+    const user = await RegisterSchema.findOne({ email, _id: user_id });
 
     if (!user) {
       console.error("User not found");
@@ -95,6 +95,7 @@ const sendApprovalMail = async (req, res) => {
     });
   }
 };
+
 
 const verifyToken = async (req, res) => {
   try {
