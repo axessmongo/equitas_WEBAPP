@@ -7,7 +7,7 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  opendate: {
+  opentime: {
     type: String,
   },
   closetime: {
@@ -17,7 +17,7 @@ const projectSchema = new Schema({
   company:{
     type: String,
   },
-  
+
   projectarea: {
     type: String,
     
