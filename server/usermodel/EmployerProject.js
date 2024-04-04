@@ -7,11 +7,10 @@ const projectSchema = new Schema({
    
   },
   projectOnTime: {
-    type: Date,
-    default: Date.now,
+    type: String,
   },
   projectCloseTime: {
-    type: Date,
+    type: String,
   },
   projectCompanyName: {
     type: String,
