@@ -6,7 +6,7 @@ const employerController = require("../module/EmployerControl");
 
 router.post("/api/project", employerController.createProject);
 router.get("/api/userdetails", employerController.getUsersDetails);
-router.post("/api/sendApprovalMail", employerController.sendApprovalMail);
+router.post("/api/sendapprovalmail", employerController.sendApprovalMail);
 router.get("/:id/verify/:token", employerController.verifyToken);
 
 module.exports = router;
