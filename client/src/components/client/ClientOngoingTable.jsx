@@ -2,12 +2,14 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import EmplouyeeOngoingModalTable from '../employee/modal/EmplouyeeOngoingModalTable';
+import BiddingModal from './modal/BiddingModal';
 
 
 export default function ClientOngoingTable() {
 
     let mode = useSelector(state => state.mode)
     const [ongoingShow, setOngoingShow] = useState(false);
+    const [biddingShow, setBiddingShow] = useState(false);
     const [onGoingData, setOnGoingData] = useState([]);
     const [ongoingSelectData, setOngoingSelectData] = useState();
 
@@ -49,7 +51,7 @@ export default function ClientOngoingTable() {
                                     <td className='py-3'>{data.opentime}</td>
                                     <td className='py-3'>{data.closetime}</td>
                                     <td className='py-3'>{data.projectname}</td>
-                                    <td className='py-3'><button className='btn btn-success'>Interested</button></td>
+                                    <td className='py-3'><button className='btn btn-success' onClick={()=> setBiddingShow(true) + setOngoingSelectData(data)}>Interested</button></td>
                                     <td className='py-3'>
                                         <a className="link-underline-dark text-decoration-none cursor" onClick={() => setOngoingShow(true) + setOngoingSelectData(data)}>More Info</a>
                                     </td>
@@ -62,6 +64,8 @@ export default function ClientOngoingTable() {
             </div>
             <EmplouyeeOngoingModalTable selectedData={ongoingSelectData} show={ongoingShow}
                 onHide={() => setOngoingShow(false)} />
+            <BiddingModal selectedData={ongoingSelectData} show={biddingShow}
+                onHide={() => setBiddingShow(false)}   onClose={() => setBiddingShow(false)}/>
         </>
     )
 }
