@@ -7,7 +7,8 @@ const crypto = require("crypto");
 const ApprovedMailer = require("../utils/Approvedmailer.js");
 
 const createProject = async (req, res) => {
-  const { projectname, opendate, closedate, projectarea, description } = req.body;
+  const { projectname, opendate, closedate, projectarea, description } =
+    req.body;
 
   try {
     const project = await EmployerSchema.create({
@@ -59,20 +60,24 @@ const getUsersDetails = async (req, res) => {
 };
 
 const sendApprovalMail = async (req, res) => {
-  const { email, user_id } = req.body;
+  const { email } = req.body;
 
   try {
     const user = await RegisterSchema.findOne({ email });
 
-     if (!user) {
-       console.error("User not found");
-     return res.status(404).json({ message: "User not found" });
+    console.log(user);
+    
+    if (!user) {
+      console.error("User not found");
+      return res.status(404).json({ message: "User not found" });
     }
 
     const existingToken = await TokenSchema.findOne({ userId: user._id });
     if (existingToken) {
       console.error("Token already exists for the user");
-      return res.status(400).json({ message: "Token already exists for the user" });
+      return res
+        .status(400)
+        .json({ message: "Token already exists for the user" });
     }
 
     const tokenValue = crypto.randomBytes(36).toString("hex");
@@ -95,7 +100,6 @@ const sendApprovalMail = async (req, res) => {
     });
   }
 };
-
 
 const verifyToken = async (req, res) => {
   try {
