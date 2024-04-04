@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom'; // Import Link along with useParams hook
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
 
 function CheckMail() {
-    const [validUrl, setValidUrl] = useState(false);
-    const { id, token } = useParams();
+    const { id, token } = useParams(); 
+    const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        const verifyEmailUrl = async () => {
+        const verify = async () => {
             try {
-                const url = `http://localhost:4000/${id}/verify/${token}`;
-                const { data } = await axios.get(url);
-                console.log(data);
-                setValidUrl(true);
+                const response = await axios.get(`http://localhost:4000/api/verify/${id}/verify/${token}`);
+                setMessage(response.data.message);
             } catch (error) {
-                console.log(error);
-                setValidUrl(false);
+                setMessage('Error verifying email');
+            } finally {
+                setLoading(false);
             }
         };
-        verifyEmailUrl();
-    }, [id, token]);
+
+        verify();
+    }, [id, token]); // Include id and token in the dependency array
 
     return (
         <div>
-            {validUrl ? (
-                <div className="">
-                    <h1>Email verified successfully</h1>
-                    <Link to="/clientdashboard">
-                        <button className="btn btn-success">Dashboard</button>
-                    </Link>
-                </div>
-            ) : (
-                <h1>404 Not Found</h1>
-            )}
+            <div>
+                {loading ? (
+                    <p>Verifying...</p>
+                ) : (
+                    <div>
+                        <p>{message}</p>
+                        <Link to="/clientDashboard">ClientDashboard</Link>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

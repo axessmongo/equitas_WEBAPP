@@ -16,7 +16,7 @@ import ListofBids from './components/employee/ListofBids';
 import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
-// import CheckMail from './components/CheckMail';
+import CheckMail from './components/CheckMail';
 
 export default function MainRouter() {
 
@@ -42,6 +42,7 @@ export default function MainRouter() {
                     <Route path='employeeongoing' element={<EmployeeOngoingTable />} />
                     <Route path='listofbids' element={<ListofBids />} />
                     <Route path='employeeawards' element={<EmployeeAward />} />
+                    <Route path="/verify/:id/verify/:token" element={<CheckMail/>} />
                 </Route>
             </Routes>
         </BrowserRouter>
