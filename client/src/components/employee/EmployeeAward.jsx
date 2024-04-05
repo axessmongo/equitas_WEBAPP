@@ -3,7 +3,7 @@ import React from 'react'
 export default function EmployeeAward() {
   return (
     <>
-      <div className='ourtable'>
+      <div className='ourtable table-responsive'>
         <table className="table my-3">
           <thead>
             <tr>

@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
 
 const ClientRegister = () => {
     const [regStatus, setRegStatus] = useState(false)
-    const handleSubmit = (values, { setSubmitting }) => {
+    let loaderDispatch = useDispatch()
+
+
+    const handleSubmit = async (values, { setSubmitting }) => {
         // Perform form submission logic here, e.g., API call to save data
 
-        axios.post('http://localhost:4000/api/register', values)
-            .then(response => {
-                // Handle success
-                console.log('Response:', response.data.data);
-                setRegStatus(true)
-            })
-            .catch(error => {
-                // Handle error
-                console.error('Error:', error);
-            });
+        try {
+            loaderDispatch(setLoader(true))
+            const response = await axios.post('http://localhost:4000/api/register', values);
+            // Handle success
+            console.log('Response:', response.data.data);
+            setRegStatus(true);
+        } catch (error) {
+            // Handle error
+            console.error('Error:', error);
+        } finally {
+            loaderDispatch(setLoader(false))
+        }
+
 
         console.log(values);
         // Simulate submission success
@@ -45,7 +53,7 @@ const ClientRegister = () => {
                     </div>
                 </div>
                 :
-                <div className="container vh-100 d-flex justify-content-center align-items-center flex-column">
+                <div className="container min-vh-100 d-flex justify-content-center align-items-center flex-column">
                     <div className="myshadow p-4 rounded-3">
                         <h2>Client Registration</h2>
                         <Formik

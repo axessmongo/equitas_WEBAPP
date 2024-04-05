@@ -5,7 +5,7 @@ export default function ListofBids() {
     const [bidersListShow, setBidersListShow] = useState(false);
     return (
         <>
-            <div className='ourtable'>
+            <div className='ourtable table-responsive'>
                 <table className="table my-3">
                     <thead>
                         <tr>
@@ -26,7 +26,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 75000</td>
+                            <td className='py-3'><span className="bols">₹</span> 75000</td>
                         </tr>
 
                         <tr>
@@ -37,7 +37,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 72000</td>
+                            <td className='py-3'><span className="bols">₹</span> 72000</td>
                         </tr>
                         <tr>
                             <td className='py-3'>3</td>
@@ -47,7 +47,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 73000</td>
+                            <td className='py-3'><span className="bols">₹</span> 73000</td>
                         </tr>
 
                         <tr>
@@ -58,7 +58,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 71000</td>
+                            <td className='py-3'><span className="bols">₹</span> 71000</td>
                         </tr>
 
                         <tr>
@@ -69,7 +69,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 74000</td>
+                            <td className='py-3'><span className="bols">₹</span> 74000</td>
                         </tr>
 
                         <tr>
@@ -80,7 +80,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 77000</td>
+                            <td className='py-3'><span className="bols">₹</span> 77000</td>
                         </tr>
 
                         <tr>
@@ -91,7 +91,7 @@ export default function ListofBids() {
                             <td className='py-3'>
                                 <a className="link-underline-dark text-decoration-none cursor" onClick={() => setBidersListShow(true)}>More Info</a>
                             </td>
-                            <td className='py-3'><span class="bols">₹</span> 78000</td>
+                            <td className='py-3'><span className="bols">₹</span> 78000</td>
                         </tr>
 
 

@@ -17,13 +17,18 @@ import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
 import CheckMail from './components/CheckMail';
+import Loader from './loader/Loader';
+import { useSelector } from 'react-redux';
 
 export default function MainRouter() {
 
+    let loader = useSelector((state) => state.loader)
+    console.log(loader);
   
     return (
 
         <>
+        {loader && <Loader/>}
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<ClientLogin />} />
@@ -43,7 +48,7 @@ export default function MainRouter() {
                     <Route path='listofbids' element={<ListofBids />} />
                     <Route path='employeeawards' element={<EmployeeAward />} />
                 </Route>
-                <Route path="/verify/:id/verify/:token" element={<CheckMail/>} />
+                <Route path="/:id/verify/:token" element={<CheckMail/>} />
             </Routes>
         </BrowserRouter>
     </>

@@ -10,7 +10,7 @@ function CheckMail() {
     useEffect(() => {
         const verify = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/verify/${id}/verify/${token}`);
+                const response = await axios.get(`http://localhost:4000/${id}/verify/${token}`);
                 setMessage(response.data.message);
             } catch (error) {
                 setMessage('Error verifying email');
