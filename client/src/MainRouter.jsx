@@ -17,7 +17,7 @@ import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
 import CheckMail from './components/CheckMail';
-import ForgotPassword from './components/client/ForgotPassword';
+// import ForgotPassword from './components/client/ForgotPassword';
 
 export default function MainRouter() {
 
@@ -46,7 +46,7 @@ export default function MainRouter() {
                     </Route>
                     <Route path="/verify/:id/verify/:token" element={<CheckMail />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+                    {/* <Route path="/password-reset/:id/:token" element={<PasswordReset />} /> */}
                 </Routes>
             </BrowserRouter>
         </>
