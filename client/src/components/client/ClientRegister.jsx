@@ -15,7 +15,7 @@ const ClientRegister = () => {
         try {
             loaderDispatch(setLoader(true))
             const response = await axios.post('http://localhost:4000/api/register', values);
-            // Handle success
+            alert('Registered successfully')
             console.log('Response:', response.data.data);
             setRegStatus(true);
         } catch (error) {

@@ -4,7 +4,7 @@ const ventorDetailrouter =require("../module/ventorcontrol.js")
 
 
 router.post("/api/register",ventorDetailrouter.RegisterPostMethod);
-router.get("/:id/verify/:token/",ventorDetailrouter.Getesting);
+router.post("/api/login", ventorDetailrouter.loginMethod);
 //
 router.post("/api/emailpassword", ventorDetailrouter.Emailpassword);
 router.get("/:id/:token",ventorDetailrouter.ResetLink);
