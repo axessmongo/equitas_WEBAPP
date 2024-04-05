@@ -52,43 +52,8 @@ const RegisterPostMethod = async (req, res) => {
   }
 };
 
-/////////////////////////////
-
-const Employertest = async (req, res) => {
-  const {
-    projectname,
-    opentime,
-    closetime,
-    projectarea,
-    description,
-    company,
-    number,
-  } = req.body;
-
-  try {
-    const project = await EmployerSchema.create({
-      projectname,
-      opentime,
-      closetime,
-      projectarea,
-      description,
-      company,
-      number,
-    });
-
-    res.status(200).json({
-      message: "Project created successfully",
-      data: project,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error creating project",
-    });
-  }
-};
+////////////////////////////
 
 module.exports = {
   RegisterPostMethod,
-  Employertest
 };

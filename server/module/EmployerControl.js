@@ -131,9 +131,7 @@ const sendApprovalMail1 = async (req, res) => {
   const updateuser = req.body;
 
   try {
-    // Assuming RegisterSchema and TokenSchema are properly imported and defined
-
-    // Update user information
+   
     const updatedUser = await RegisterSchema.findByIdAndUpdate(
       id,
       updateuser,
@@ -147,44 +145,10 @@ const sendApprovalMail1 = async (req, res) => {
       });
     }
 
-    // Find user by email
-    const user = await RegisterSchema.findOne({ email: updatedUser.email });
-
-    // If user with provided email is not found, return 404
-    if (!user) {
-      return res.status(404).json({
-        message: "Could not find user with email",
-      });
-    }
-
-    // Check if a token already exists for the user
-    const existingToken = await TokenSchema.findOne({ userId: user._id });
-    if (existingToken) {
-      console.error("Token already exists for the user");
-      return res.status(400).json({ message: "Token already exists for the user" });
-    }
-
-    // Generate a random token value
-    const tokenValue = crypto.randomBytes(36).toString("hex");
-
-    // Create a new token for the user
-    const newToken = new TokenSchema({
-      userId: user._id,
-      token: tokenValue,
-    });
-
-    // Save the token to the database
-    await newToken.save();
-
-    // Construct verification URL
-    const verificationUrl = `/verify/${user._id}/${tokenValue}`;
-
-    // Send verification email
-    await ApprovedMailer.sendVerificationEmail(user.email, verificationUrl);
-
-    // Send success response
+    // Send success response with updated user data
     res.status(200).json({
-      message: "Verification email sent successfully",
+      message: 'Success',
+      data: updatedUser, // corrected from 'object' to 'updatedUser'
     });
 
   } catch (error) {
