@@ -1,4 +1,3 @@
-// employerController.js
 const EmployerSchema = require("../usermodel/EmployerProject.js");
 const RegisterSchema = require("../usermodel/RegisterSchema.js");
 const TokenSchema = require("../usermodel/TokenSchema.js");
@@ -85,45 +84,6 @@ const getUsersDetails = async (req, res) => {
   }
 };
 
-const sendApprovalMail = async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    const user = await RegisterSchema.findOne({ email, });
-
-    if (!user) {
-      console.error("User not found");
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const existingToken = await TokenSchema.findOne({ userId: user._id });
-    if (existingToken) {
-      console.error("Token already exists for the user");
-      return res
-        .status(400)
-        .json({ message: "Token already exists for the user" });
-    }
-
-    const tokenValue = crypto.randomBytes(36).toString("hex");
-    const newToken = new TokenSchema({
-      userId: user._id,
-      token: tokenValue,
-    });
-    await newToken.save();
-
-    const verificationUrl = `/verify/${user._id}/${tokenValue}`;
-    await ApprovedMailer.sendVerificationEmail(user.email, verificationUrl);
-
-    return res.status(200).json({
-      message: "Verification email sent successfully",
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error sending approval email",
-    });
-  }
-};
 
 const Getmethods = async (req, res) => {
   try {
@@ -174,7 +134,7 @@ const sendApprovalMail1 = async (req, res) => {
     }
 
     // Generate a new token for the user
-    const tokenValue = crypto.randomBytes(36).toString("hex");
+    const tokenValue = crypto.randomBytes(32).toString("hex");
     const newToken = new TokenSchema({
       userId: updatedUser._id,
       token: tokenValue,
@@ -200,7 +160,6 @@ const sendApprovalMail1 = async (req, res) => {
 };
 
 
-
 const verifyToken = async (req, res) => {
   try {
     const user = await RegisterSchema.findOne({ _id: req.params.id });
@@ -210,11 +169,13 @@ const verifyToken = async (req, res) => {
       userId: user._id,
       token: req.params.token,
     });
+
     if (!token) return res.status(400).send({ message: "Invalid link" });
 
     await user.updateOne({ _id: user._id }, { verified: true });
 
     res.status(200).send({ message: "Email verified successfully" });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -223,11 +184,11 @@ const verifyToken = async (req, res) => {
   }
 };
 
+
 module.exports = {
   createProject,
   showingproject,
   getUsersDetails,
-  sendApprovalMail,
   sendApprovalMail1,
   verifyToken,
   Getmethods
