@@ -4,7 +4,7 @@ const TokenSchema = require("../usermodel/TokenSchema.js");
 const crypto = require("crypto");
 const ApprovedMailer = require("../utils/Approvedmailer.js");
 
-const Createproject = async (req, res, next) => {
+const Createproject = async (req, res, ) => {
   const {
     projectname,
     opentime,
@@ -42,6 +42,31 @@ const Createproject = async (req, res, next) => {
     });
   }
 };
+
+const showProject = async (req, res, ) => {
+    try {
+        const user = await EmployerSchema.findOne({})
+
+        if(!user){
+            return(
+                res.status(404).json({
+                    message: "User not found",
+                })
+            )
+        }
+
+        res.status(200).json({
+            message: "Project verified",
+            data: user
+        })
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Internal server error",
+        })
+    }
+}
 
 const GettinguserDetails = async (req, res) => {
   try {
@@ -110,4 +135,4 @@ const sendApprovalMail = async (req, res) => {
     }
   }
 
-module.exports = { Createproject, GettinguserDetails,sendApprovalMail };
+module.exports = { Createproject, GettinguserDetails,sendApprovalMail,showProject };
