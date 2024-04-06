@@ -69,7 +69,7 @@ const loginMethod = async (req, res) => {
 
   try {
     // Find user by email
-    const user = await RegisterSchema.findOne({ email });
+    const user = await RegisterSchema.findOne({ email, });
 
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -141,51 +141,10 @@ const Emailpassword = async (req, res) => {
   }
 };
 
-//verfity password validation
 
-const ResetLink = async (req, res) => {
-  try {
-    const user = await RegisterSchema.findOne({ _id: req.params.id });
-    if (!user) return res.status(400).send({ message: "Invalid link" });
-
-    const token = await TokenSchema.findOne({
-      userId: user._id,
-      token: req.params.token,
-    });
-    if (!token) return res.status(400).send({ message: "Invalid link" });
-
-    res.status(200).send("Valid Url");
-  } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-};
-
-//setnewpassword:
-
-const Setnewpassword = async (req, res) => {
-  const { password } = req.body;
-
-  try {
-    const user = await RegisterSchema.findOne({ _id: req.params.id });
-    if (!user) return res.status(400).send({ message: "Invalid link" });
-
-    const token = await TokenSchema.findOne({
-      userId: user._id,
-      token: req.params.token,
-    });
-    if (!token) return res.status(400).send({ message: "Invalid link" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "invalid password for user",
-    });
-  }
-};
 
 module.exports = {
   RegisterPostMethod,
   Emailpassword,
-  ResetLink,
-  Setnewpassword,
   loginMethod
 };

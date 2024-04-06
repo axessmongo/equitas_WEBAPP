@@ -3,9 +3,9 @@ const { Schema } = mongoose;
 
 // Define the schema
 const projectSchema = new Schema({
+
   projectname: {
     type: String,
-    required: true,
   },
   opentime: {
     type: String,
@@ -14,17 +14,16 @@ const projectSchema = new Schema({
     type: String,
 
   },
-  company:{
+  company: {
     type: String,
   },
-
+    
   projectarea: {
     type: String,
-    
+   
   },
   description: {
     type: String,
-    
   },
 });
 
