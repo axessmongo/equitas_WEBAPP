@@ -95,6 +95,7 @@ const loginMethod = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token: token,
+      data: user._id
     });
 
   } catch (error) {
@@ -142,28 +143,28 @@ const Emailpassword = async (req, res) => {
 };
 
 const Bookmarkprojects = async (req, res) => {
+  const {projectid} =req.body;
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const bookmarks = req.body; 
+    const finduser = await RegisterSchema.findById(id);
 
-    const userdata = await RegisterSchema.findByIdAndUpdate(id, { bookmarks }, { new: true });
-
-    if (!userdata) {
-      return res.status(404).json({
-        message: 'User not found',
-      });
+    if(!finduser) {
+      res.status(404).json({
+        message: "user is not found",
+      })
     }
+    finduser.intestedprojects.push(projectid);
+
+    await finduser.save();
 
     res.status(200).json({
-      message: 'Bookmarks updated successfully',
-      data: userdata,
-    });
-    
+      message: "successfully saved project",
+    })
+
   } catch (error) {
-    console.error(error);
     res.status(500).json({
-      message: 'Internal server error',
-    });
+      message: "Error saving project",
+    })
   }
 };
 
