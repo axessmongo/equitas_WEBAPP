@@ -71,6 +71,8 @@ const loginMethod = async (req, res) => {
     // Find user by email
     const user = await RegisterSchema.findOne({ email, });
 
+    const singleuser = await RegisterSchema.findOne({ email });
+
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -95,7 +97,7 @@ const loginMethod = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token: token,
-      data: user
+      data: singleuser
     });
 
   } catch (error) {
