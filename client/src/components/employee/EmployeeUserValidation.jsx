@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setLoader } from '../../globalstate/slices/loaderSlice';
 
 export default function EmployeeUserValidation() {
-    const [userData, setUserData] = useState([]);
+    const [userData, setUserId] = useState([]);
     const [userModalShow, setUserModalShow] = useState(false);
     const [userModalData, setUserModalData] = useState({});
     const [updateUserValidation, setUpdateUserValidation] = useState(null); // Initialize with null
@@ -15,7 +15,7 @@ export default function EmployeeUserValidation() {
     const fetchUserData = async () => {
         try {
             const res = await axios.get('http://localhost:4000/api/userdetails');
-            setUserData(res.data.data);
+            setUserId(res.data.data);
             console.log(userData);
         } catch (error) {
             console.error('Error fetching data:', error.message);
@@ -34,7 +34,7 @@ export default function EmployeeUserValidation() {
             const approveUserAPI = async () => {
                 try {
                     loaderDispatch(setLoader(true))
-                    const res = await axios.put(`http://localhost:4000/sendapprovalmail/${updateUserValidation.id}`, updateUserValidation);
+                    const res = await axios.put(`http://localhost:4000/api/mailapproval/${updateUserValidation.id}`, updateUserValidation);
                     if (res.status === 200) {
                         console.log('Approval email sent successfully');
                         fetchUserData(); // Fetch updated user data

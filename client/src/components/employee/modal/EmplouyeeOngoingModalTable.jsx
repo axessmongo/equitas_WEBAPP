@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap'
 
 export default function EmplouyeeOngoingModalTable(props) {
 
-    console.log(props.selectedData);
+
     return (
         <>
 

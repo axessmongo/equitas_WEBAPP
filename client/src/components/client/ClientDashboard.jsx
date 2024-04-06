@@ -15,7 +15,7 @@ export default function ClientDashboard() {
 
     console.log(realPathName);
 
-    let mode = useSelector((state) => state.mode)
+    let mode = useSelector((state) => state.mode);
 
     useEffect(() => {
         let html = document.documentElement;

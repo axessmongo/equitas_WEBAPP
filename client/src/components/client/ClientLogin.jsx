@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Assuming axios is installed and properly configured
+import axios from 'axios';
 import ForgotModal from './modal/ForgatModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserData, setUserId } from '../../globalstate/slices/userDataSlice';
 
 const initialValues = {
   email: '',
@@ -12,19 +14,22 @@ const initialValues = {
 export default function ClientLogin() {
   const [forgotModalShow, setForgotModalShow] = useState(false);
   const navigate = useNavigate();
+  const passData = useDispatch();
 
-  function validateUser(values, resetForm) {
-    axios.post('http://localhost:4000/api/login', values)
-      .then(response => {
-        console.log(response.data.data);
-        alert('welcome to you');
-        resetForm();
-        navigate('/clientdashboard/ongoing');
-      })
-      .catch(error => {
-        console.error('Login failed:', error);
-        // Handle login error, such as displaying an error message
-      });
+  async function validateUser(values, resetForm) {
+    try {
+      const response = await axios.post('http://localhost:4000/api/login', values);
+      alert('Welcome to you');
+      resetForm();
+      passData(setUserId(response.data.data));
+      navigate('/clientdashboard/ongoing');
+    } catch (error) {
+      if (error.response.status === 301) {
+        alert('Still You are not verified ');
+      } else {
+        alert('give valid info');
+      }
+    }
   }
 
   return (
@@ -103,7 +108,7 @@ export default function ClientLogin() {
                     <Link className="txt2 cursor" to={'/clientregister'}>
                       New User / Signup?
                     </Link>
-                  </div>  
+                  </div>
                   <div className="text-center p-t-12 pt-3">
                     <span className="txt1">Forgot </span>
                     <Link className="txt2 cursor" onClick={() => setForgotModalShow(true)}>

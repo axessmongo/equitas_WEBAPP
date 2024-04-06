@@ -10,7 +10,7 @@ export default function EmployeeOngoingTable() {
 
     const getOngoingData = async () => {
         try {
-            const res = await axios.get('http://localhost:4000/api/showproject');
+            const res = await axios.get('http://localhost:4000/api/showprojects');
             setOnGoingData(res.data.data);
         } catch (err) {
             console.log(err)
