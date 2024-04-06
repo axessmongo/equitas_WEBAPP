@@ -4,6 +4,7 @@ const EmployerRouter =require("../module/EmployerControl.js");
 
 router.post("/api/project",EmployerRouter.Createproject)
 router.get("/api/userdetails",EmployerRouter.GettinguserDetails)
+router.put("/api/mailapprovel/:id",EmployerRouter.sendApprovalMail)
 
 
 
