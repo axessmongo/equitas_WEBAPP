@@ -95,7 +95,7 @@ const loginMethod = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token: token,
-      data: user._id
+      data: user
     });
 
   } catch (error) {
