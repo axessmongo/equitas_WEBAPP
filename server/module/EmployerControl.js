@@ -45,15 +45,7 @@ const Createproject = async (req, res, ) => {
 
 const showProject = async (req, res, ) => {
     try {
-        const user = await EmployerSchema.findOne({})
-
-        if(!user){
-            return(
-                res.status(404).json({
-                    message: "User not found",
-                })
-            )
-        }
+        const user = await EmployerSchema.find({})
 
         res.status(200).json({
             message: "Project verified",
