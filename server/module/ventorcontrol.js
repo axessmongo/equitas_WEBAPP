@@ -141,10 +141,37 @@ const Emailpassword = async (req, res) => {
   }
 };
 
+const Bookmarkprojects = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const bookmarks = req.body; 
+
+    const userdata = await RegisterSchema.findByIdAndUpdate(id, { bookmarks }, { new: true });
+
+    if (!userdata) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+
+    res.status(200).json({
+      message: 'Bookmarks updated successfully',
+      data: userdata,
+    });
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Internal server error',
+    });
+  }
+};
+
 
 
 module.exports = {
   RegisterPostMethod,
   Emailpassword,
-  loginMethod
+  loginMethod,
+  Bookmarkprojects
 };

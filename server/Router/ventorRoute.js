@@ -5,6 +5,7 @@ const ventorDetailrouter =require("../module/ventorcontrol.js")
 
 router.post("/api/register",ventorDetailrouter.RegisterPostMethod);
 router.post("/api/login", ventorDetailrouter.loginMethod);
+router.put("/api/bookmarkprojects/:id",ventorDetailrouter.Bookmarkprojects);
  router.post("/api/emailpassword", ventorDetailrouter.Emailpassword);
 // router.get("/:id/:token",ventorDetailrouter.ResetLink);
 //  router.post("/:id/:token", ventorDetailrouter.Setnewpassword);

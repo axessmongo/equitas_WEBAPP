@@ -28,6 +28,10 @@ const blogSchema = new Schema({
     required: true,
     unique: true,
   },
+  intestedprojects:{
+    type: Array,
+  },
+  
   verified: {
     type: Boolean,
     default: false,

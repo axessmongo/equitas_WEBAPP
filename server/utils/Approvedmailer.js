@@ -16,8 +16,9 @@ const sendVerificationEmail = async (recipientEmail, verificationUrl) => {
       from: process.env.user,
       to: recipientEmail,
       subject: "Equitas Bank Verification to Login Access",
-      text: `You are receiving this email because of login to Equitas Bank.\n\nPlease click on the following link, or paste this into your browser to complete the process Kindly check click this token:\n\nhttp://localhost:3000${verificationUrl}\n\n`,
+      text: "You are receiving this email because of login to Equitas Bank",
      
+      // \n\nPlease click on the following link, or paste this into your browser to complete the process Kindly check click this token:\n\nhttp://localhost:3000${verificationUrl}\n\n`,
     };
 
     await transporter.sendMail(mailOptions);
