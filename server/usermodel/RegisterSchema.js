@@ -2,7 +2,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-
 // Define the schema
 const blogSchema = new Schema({
   fullname: {
@@ -28,20 +27,21 @@ const blogSchema = new Schema({
     required: true,
     unique: true,
   },
-  intestedprojects:{
+  intestedprojects: {
     type: [],
   },
-  
+
+  biddedprojects: {
+    type: {},
+  },
+
   verified: {
     type: Boolean,
     default: false,
   },
 });
 
-
 // Create a model
 const Register = mongoose.model("Register", blogSchema);
 
-
 module.exports = Register;
-

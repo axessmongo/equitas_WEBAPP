@@ -176,7 +176,36 @@ const Bookmarkprojects = async (req, res) => {
   }
 };
 
+const Bidvalue = async (req, res) => {
+  const { id } = req.params;
+  const { bitvalue, projectid } = req.body;
+  try {
+    // Find the user by ID
+    const finduser = await RegisterSchema.findById(id);
 
+    if (!finduser) {
+      return res.status(404).json({
+        message: "User is not found",
+      });
+    }
+    finduser.biddedprojects = {
+      ...finduser.biddedprojects,
+      [projectid]: bitvalue,
+    };
+
+    await finduser.save();
+
+    res.status(200).json({
+      message: "Bid value added successfully",
+      user: finduser, 
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error while updating bid value",
+    });
+  }
+};
 
 //getting id method :
 
@@ -208,4 +237,5 @@ module.exports = {
   loginMethod,
   Bookmarkprojects,
   getIdMethod,
+  Bidvalue,
 };
