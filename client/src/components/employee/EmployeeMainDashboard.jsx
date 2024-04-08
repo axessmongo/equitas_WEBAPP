@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { setMode } from '../../globalstate/slices/modeSlice';
+import Profile from '../../profile/Profile';
 
 export default function EmployeeDashboard() {
 
@@ -83,36 +84,13 @@ export default function EmployeeDashboard() {
                                                 </NavLink>
                                             </li>
                                         </ul>
-                                        <div className={`profile myshadow w-100 rounded-4 py-lg-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ' : 'bg-white'} d-lg-none`}>
-                                            <div className='profile-img'>
-                                                <i className="bi bi-person-circle display-6"></i>
-                                            </div>
-
-                                            <div className='profile-info'>
-                                                <p className='lead fs-6 fw-semibold m-0'>Sundar1007</p>
-                                            </div>
-
-                                            <div>
-                                                <Link to={'/'} className='btn btn-danger'>Logout</Link>
-                                            </div>
+                                        <div className="d-lg-none">
+                                            <Profile />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="container-lg-fluid mb-lg-3 d-none d-lg-block">
-                                    <div className={`profile myshadow w-100 rounded-4 py-lg-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ' : 'bg-white'}`}>
-                                        <div className='profile-img'>
-                                            <i className="bi bi-person-circle display-6"></i>
-                                        </div>
-
-                                        <div className='profile-info'>
-                                            <p className='lead fs-6 fw-semibold m-0'>Sundar1007</p>
-                                        </div>
-                                        <div className='mt-3 d-none d-lg-block'>
-                                            <button className="btn btn-outline-primary fs-6">
-                                                Update Profile
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <Profile />
                                 </div>
                             </nav>
                         </div>

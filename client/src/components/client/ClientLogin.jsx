@@ -13,6 +13,7 @@ const initialValues = {
 
 export default function ClientLogin() {
   const [forgotModalShow, setForgotModalShow] = useState(false);
+  const [adminDetails, setAdminDetails] = useState();
   const navigate = useNavigate();
   const passData = useDispatch();
 
@@ -20,9 +21,16 @@ export default function ClientLogin() {
     try {
       const response = await axios.post('http://localhost:4000/api/login', values);
       alert('Welcome to you');
+      console.log(response.data);
       resetForm();
-      passData(setUserId(response.data.data));
-      navigate('/clientdashboard/ongoing');
+      await passData(setUserId(response.data.data));
+      await passData(fetchUserData(response.data.data));
+      // await getAdminvalues(); // Fetch admin details again after user login
+      if ('admin@gmail.com' === values.email ) {
+        navigate('/EmployeeDashboard/employeeuservalidation');
+      } else {
+        navigate('/clientdashboard/ongoing');
+      }
     } catch (error) {
       if (error.response.status === 301) {
         alert('Still You are not verified ');
@@ -31,6 +39,22 @@ export default function ClientLogin() {
       }
     }
   }
+
+  async function getAdminvalues() {
+    try {
+      const response = await axios.get('http://localhost:4000/api/getadmin');
+      await setAdminDetails(response.data.data.email);
+      await console.log(adminDetails); // Corrected typo here
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAdminvalues();
+  }, []);
+
+
 
   return (
     <>
