@@ -178,7 +178,7 @@ const Bookmarkprojects = async (req, res) => {
 
 const Bidvalue = async (req, res) => {
   const { id } = req.params;
-  const { bitvalue, projectid } = req.body;
+  const { biddedvalue, projectid } = req.body;
   try {
     // Find the user by ID
     const finduser = await RegisterSchema.findById(id);
@@ -190,7 +190,7 @@ const Bidvalue = async (req, res) => {
     }
     finduser.biddedprojects = {
       ...finduser.biddedprojects,
-      [projectid]: bitvalue,
+      [projectid]: biddedvalue,
     };
 
     await finduser.save();
