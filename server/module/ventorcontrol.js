@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const TokenSchema = require("../usermodel/TokenSchema.js");
 const jwt = require("jsonwebtoken");
 const RegisterSchema = require("../usermodel/RegisterSchema.js");
+const EmployerSchema = require("../usermodel/EmployerProject.js");
 const sendEmailToVendor = require("../utils/RegisterMailer.js");
 const sendEmail = require("../utils/Sendmailer.js");
 
@@ -176,6 +177,8 @@ const Bookmarkprojects = async (req, res) => {
   }
 };
 
+//Bidded values
+
 const Bidvalue = async (req, res) => {
   const { id } = req.params;
   const { biddedvalue, projectid } = req.body;
@@ -197,13 +200,40 @@ const Bidvalue = async (req, res) => {
 
     res.status(200).json({
       message: "Bid value added successfully",
-      user: finduser, 
+      user: finduser,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Error while updating bid value",
     });
+  }
+};
+
+const biddedperson = async (req, res) => {
+  const { id } = req.params;
+  const { userid } = req.body;
+
+  try {
+    const findprojects = await EmployerSchema.findById(id); 
+
+    const { fullname, email, phone, biddedprojects } =
+      await RegisterSchema.findById(userid);
+
+    if (findprojects) {
+      findprojects.biddedperson.push({ fullname, email, phone, biddedprojects });
+      await findprojects.save(); 
+      return res.status(200).json({
+        message: "bidded person added",
+      });
+    } else {
+      return res.status(404).json({
+        message: "Project not found",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" }); 
   }
 };
 
@@ -238,4 +268,5 @@ module.exports = {
   Bookmarkprojects,
   getIdMethod,
   Bidvalue,
+  biddedperson
 };

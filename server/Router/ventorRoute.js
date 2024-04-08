@@ -10,6 +10,7 @@ router.post("/api/intrestedprojects/:id", ventorDetailrouter.Bookmarkprojects)
 router.post("/api/emailpassword", ventorDetailrouter.Emailpassword);
 router.get("/api/singleuser/:id", ventorDetailrouter.getIdMethod);
 router.post("/api/biddedvalues/:id", ventorDetailrouter.Bidvalue);
+router.post("/api/biddedperson/:id", ventorDetailrouter.biddedperson)
 // router.get("/:id/:token",ventorDetailrouter.ResetLink);
 //  router.post("/:id/:token", ventorDetailrouter.Setnewpassword);
 

@@ -4,7 +4,7 @@ const TokenSchema = require("../usermodel/TokenSchema.js");
 const crypto = require("crypto");
 const ApprovedMailer = require("../utils/Approvedmailer.js");
 
-const Createproject = async (req, res, ) => {
+const Createproject = async (req, res) => {
   const {
     projectname,
     opentime,
@@ -43,22 +43,21 @@ const Createproject = async (req, res, ) => {
   }
 };
 
-const showProject = async (req, res, ) => {
-    try {
-        const user = await EmployerSchema.find({})
+const showProject = async (req, res) => {
+  try {
+    const user = await EmployerSchema.find({});
 
-        res.status(200).json({
-            message: "Project verified",
-            data: user
-        })
-        
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: "Internal server error",
-        })
-    }
-}
+    res.status(200).json({
+      message: "Project verified",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
 
 const GettinguserDetails = async (req, res) => {
   try {
@@ -84,47 +83,58 @@ const GettinguserDetails = async (req, res) => {
 };
 
 const sendApprovalMail = async (req, res) => {
-    const { id } = req.params;
-    const updateuser = req.body;
-  
-    try {
-      const updatedUser = await RegisterSchema.findByIdAndUpdate(
-        id,
-        updateuser,
-        { new: true }
-      );
-  
-      if (!updatedUser) {
-        return res.status(404).json({
-          message: "User not found",
-        });
-      }
-  
-      const existingToken = await TokenSchema.findOne({ userId: updatedUser._id });
-      if (existingToken) {
-        return res.status(400).json({ message: "Token already exists for the user" });
-      }
-  
-      const tokenValue = crypto.randomBytes(32).toString("hex");
-      const newToken = new TokenSchema({
-        userId: updatedUser._id,
-        token: tokenValue,
-      });
-      await newToken.save();
-  
-      const verificationUrl = `/verify/${updatedUser._id}/${tokenValue}`;
-      await ApprovedMailer.sendVerificationEmail(updatedUser.email, verificationUrl);
-  
-      return res.status(200).json({
-        message: "Verification email sent successfully",
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Error sending approval email',
-        error: error.message,
+  const { id } = req.params;
+  const updateuser = req.body;
+
+  try {
+    const updatedUser = await RegisterSchema.findByIdAndUpdate(id, updateuser, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "User not found",
       });
     }
-  }
 
-module.exports = { Createproject, GettinguserDetails,sendApprovalMail,showProject };
+    const existingToken = await TokenSchema.findOne({
+      userId: updatedUser._id,
+    });
+    if (existingToken) {
+      return res
+        .status(400)
+        .json({ message: "Token already exists for the user" });
+    }
+
+    const tokenValue = crypto.randomBytes(32).toString("hex");
+    const newToken = new TokenSchema({
+      userId: updatedUser._id,
+      token: tokenValue,
+    });
+    await newToken.save();
+
+    const verificationUrl = `/verify/${updatedUser._id}/${tokenValue}`;
+    await ApprovedMailer.sendVerificationEmail(
+      updatedUser.email,
+      verificationUrl
+    );
+
+    return res.status(200).json({
+      message: "Verification email sent successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error sending approval email",
+      error: error.message,
+    });
+  }
+};
+
+
+module.exports = {
+  Createproject,
+  GettinguserDetails,
+  sendApprovalMail,
+  showProject,
+};

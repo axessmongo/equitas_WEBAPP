@@ -25,6 +25,10 @@ const projectSchema = new Schema({
   description: {
     type: String,
   },
+
+  biddedperson: {
+    type:[]
+  }
 });
 
 // Create and export the model
