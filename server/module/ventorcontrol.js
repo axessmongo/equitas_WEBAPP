@@ -162,7 +162,7 @@ const Bookmarkprojects = async (req, res) => {
         message: "Successfully saved project",
       });
     } else {
-      finduser.intestedprojects.splice(projectIndex, 1); 
+      finduser.intestedprojects.splice(projectIndex, 1);
       await finduser.save();
       return res.status(201).json({
         message: "Successfully removed project",
