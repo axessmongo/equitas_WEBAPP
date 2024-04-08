@@ -140,75 +140,48 @@ const Emailpassword = async (req, res) => {
   }
 };
 
-//Booking intestedprojects
+//  Booking intestedprojects
 const Bookmarkprojects = async (req, res) => {
-  const {projectid} =req.body;
+  const { projectid } = req.body;
   const { id } = req.params;
   try {
     const finduser = await RegisterSchema.findById(id);
 
-    if(!finduser) {
-      res.status(404).json({
-        message: "user is not found",
-      })
+    if (!finduser) {
+      return res.status(404).json({
+        message: "User is not found",
+      });
     }
-    finduser.intestedprojects.push(projectid);
 
-    await finduser.save();
+    const projectIndex = finduser.intestedprojects.indexOf(projectid);
 
-    res.status(200).json({
-      message: "successfully saved project",
-    })
-
+    if (projectIndex === -1) {
+      finduser.intestedprojects.push(projectid);
+      await finduser.save();
+      return res.status(200).json({
+        message: "Successfully saved project",
+      });
+    } else {
+      finduser.intestedprojects.splice(projectIndex, 1); 
+      await finduser.save();
+      return res.status(201).json({
+        message: "Successfully removed project",
+      });
+    }
   } catch (error) {
-    res.status(500).json({
+    console.error(error);
+    return res.status(500).json({
       message: "Error saving project",
-    })
+    });
   }
 };
 
-// const Bookmarkprojects = async (req, res) => {
-//   const { projectid } = req.body;
-//   const { id } = req.params;
-//   try {
-//     const finduser = await RegisterSchema.findById(id);
 
-//     if (!finduser) {
-//       return res.status(404).json({
-//         message: "User is not found",
-//       });
-//     }
-
-//     const index = finduser.intestedprojects.indexOf(projectid);
-
-//     if (index === -1) {
-//       finduser.intestedprojects.push(projectid);
-//       res.status(200).json({
-//         message: "create projected project",
-//       });
-//     } else {
-//       finduser.intestedprojects.splice(index, 1);
-//       res.status(201).json({
-//         message: "remove projected project",
-//       });
-//     }
-
-//     await finduser.save();
-
-//     return res.status(200).json({
-//       message: "Successfully saved project",
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       message: "Error saving project",
-//     });
-//   }
-// };
 
 //getting id method :
 
 const getIdMethod = async (req, res) => {
-  const { id } = req.params; 
+  const { id } = req.params;
   try {
     const user = await RegisterSchema.findById(id);
 
@@ -219,7 +192,7 @@ const getIdMethod = async (req, res) => {
     }
     return res.status(200).json({
       message: "User has been retrieved",
-      user: user 
+      user: user,
     });
   } catch (error) {
     console.error(error);
@@ -229,11 +202,10 @@ const getIdMethod = async (req, res) => {
   }
 };
 
-
 module.exports = {
   RegisterPostMethod,
   Emailpassword,
   loginMethod,
   Bookmarkprojects,
-  getIdMethod
+  getIdMethod,
 };

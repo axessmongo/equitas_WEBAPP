@@ -29,7 +29,7 @@ const blogSchema = new Schema({
     unique: true,
   },
   intestedprojects:{
-    type: Array,
+    type: [],
   },
   
   verified: {
