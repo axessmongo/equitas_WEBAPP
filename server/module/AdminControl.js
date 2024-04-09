@@ -11,6 +11,7 @@ const Createadmin = async (req, res,) => {
       await newAdmin.save();
   
       res.status(201).send("Email created successfully");
+      
   } catch (error) {
     console.log(error);
     res.status(404).json({
