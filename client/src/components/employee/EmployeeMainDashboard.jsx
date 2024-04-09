@@ -13,7 +13,7 @@ export default function EmployeeDashboard() {
     const { pathname, search, hash } = location;
     const realPathName = pathname.slice(1)
 
-    console.log(realPathName);
+    // console.log(realPathName);
 
     let mode = useSelector((state) => state.mode)
 

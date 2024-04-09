@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 export default function UserValidationModal(props) {
 
-    console.log(props.userData);
+    // console.log(props.userData);
 
 
     return (

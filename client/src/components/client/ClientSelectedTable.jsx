@@ -29,8 +29,12 @@ export default function ClientSelectedTable() {
   const setBookmark = async (projectid) => {
     console.log(projectid);
     try {
-      await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
-      alert('project Bookmarked');
+      let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
+      if (res.status === 200) {
+        alert('Bookmark Added Successfully');
+      }else if(res.status === 201){
+        alert('Bookmark removed Successfully');
+      }
       dispatch(fetchUserData(getUserId));
     } catch (err) {
       console.log(err);
@@ -39,7 +43,7 @@ export default function ClientSelectedTable() {
 
   useEffect(() => {
     getOngoingData();
-    console.log(getIntrestedProjects);
+    // console.log(getIntrestedProjects);
   }, []);
 
   return (

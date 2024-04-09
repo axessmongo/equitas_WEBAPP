@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function Profile() {
     let mode = useSelector((state) => state.mode);
-    // let userName = useSelector((state) => state.userdata.data.fullname);
+    let userName = useSelector((state) => state.userdata.data.fullname);
 
     // console.log(userName);
     return (
@@ -14,9 +14,9 @@ export default function Profile() {
                 </div>
 
                 <div className='profile-info'>
-                    <p className='lead fs-6 fw-semibold m-0'>{'userName'}</p>
+                    <p className='lead fs-6 fw-semibold m-0'>{userName}</p>
                 </div>
-                <div className='mt-3'>
+                <div className='mt-3 d-none'>
                     <button className="btn btn-outline-primary fs-6">
                         Update Profile
                     </button>

@@ -20,15 +20,16 @@ export default function ClientLogin() {
   async function validateUser(values, resetForm) {
     try {
       const response = await axios.post('http://localhost:4000/api/login', values);
-      alert('Welcome to you');
-      console.log(response.data);
+      // console.log(response.data);
       resetForm();
       await passData(setUserId(response.data.data));
       await passData(fetchUserData(response.data.data));
       // await getAdminvalues(); // Fetch admin details again after user login
-      if ('admin@gmail.com' === values.email ) {
+      if (adminDetails.includes(values.email) ) {
+        alert('Welcome admin');
         navigate('/EmployeeDashboard/employeeuservalidation');
       } else {
+        alert('Welcome Client');
         navigate('/clientdashboard/ongoing');
       }
     } catch (error) {
@@ -44,7 +45,7 @@ export default function ClientLogin() {
     try {
       const response = await axios.get('http://localhost:4000/api/getadmin');
       await setAdminDetails(response.data.data.email);
-      await console.log(adminDetails); // Corrected typo here
+      // await console.log(adminDetails); // Corrected typo here
     } catch (error) {
       console.log(error);
     }

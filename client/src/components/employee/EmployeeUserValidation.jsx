@@ -16,7 +16,7 @@ export default function EmployeeUserValidation() {
         try {
             const res = await axios.get('http://localhost:4000/api/userdetails');
             setUserId(res.data.data);
-            console.log(userData);
+            // console.log(userData);
         } catch (error) {
             console.error('Error fetching data:', error.message);
         }
