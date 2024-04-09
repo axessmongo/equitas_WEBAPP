@@ -1,12 +1,13 @@
+// Import necessary modules
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+// Define the schema
 const blogSchema = new Schema({
   fullname: {
     type: String,
-  
   },
-  password:{
+  password: {
     type: String,
   },
   phone: {
@@ -26,6 +27,13 @@ const blogSchema = new Schema({
     required: true,
     unique: true,
   },
+  intestedprojects: {
+    type: [],
+  },
+
+  biddedprojects: {
+    type: {},
+  },
 
   verified: {
     type: Boolean,
@@ -33,6 +41,7 @@ const blogSchema = new Schema({
   },
 });
 
+// Create a model
 const Register = mongoose.model("Register", blogSchema);
 
 module.exports = Register;

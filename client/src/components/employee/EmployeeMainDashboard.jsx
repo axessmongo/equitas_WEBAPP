@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { setMode } from '../../globalstate/slices/modeSlice';
+import Profile from '../../profile/Profile';
 
 export default function EmployeeDashboard() {
 
@@ -37,14 +38,19 @@ export default function EmployeeDashboard() {
             <div className='dashboard'>
                 <div className="container-fluid">
                     <div className="row gx-4 position-relative">
-                        <div className="col-lg-4 col-xl-3 col-xxl-2 dash-sticky">
-                            <nav className="navbar navbar-expand-xl min-vh-100 align-items-start d-flex flex-column justify-content-between">
-                                <div className="container-fluid">
-                                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span className="navbar-toggler-icon"></span>
-                                    </button>
+                        <div className="col-lg-4 col-xl-3 col-xxl-2 dash-sticky px-0">
+                            <nav className="navbar navbar-expand-xl min-vh-100 align-items-start d-flex flex-lg-column justify-content-between">
+                                <div className="container-lg-fluid px-3">
+                                    <div className='d-flex justify-content-between align-items-center w-100'>
+                                        <NavLink to={'employeeuservalidation'} className="navbar-brand d-lg-none">
+                                            <img src="https://www.equitasbank.com/sites/default/files/equitas-logo.png" alt="IMG" />
+                                        </NavLink>
+                                        <button className="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                                            <span className="navbar-toggler-icon"></span>
+                                        </button>
+                                    </div>
                                     <div className="collapse navbar-collapse flex-column align-items-start" id="navbarTogglerDemo01">
-                                        <NavLink to={'employeeuservalidation'} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center">
+                                        <NavLink to={'employeeuservalidation'} className="navbar-brand py-3 border-bottom border-black-50 mb-3 w-100 text-center d-none d-lg-block">
                                             <img src="https://www.equitasbank.com/sites/default/files/equitas-logo.png" alt="IMG" />
                                         </NavLink>
                                         <ul className="navbar-nav flex-column w-100">
@@ -78,29 +84,19 @@ export default function EmployeeDashboard() {
                                                 </NavLink>
                                             </li>
                                         </ul>
+                                        <div className="d-lg-none">
+                                            <Profile />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="container-fluid mb-3">
-                                    <div className={`profile myshadow w-100 rounded-4 py-3 d-flex justify-content-center flex-column align-items-center ${mode ? 'bg-dark ' : 'bg-white'}`}>
-                                        <div className='profile-img'>
-                                            <i className="bi bi-person-circle display-6"></i>
-                                        </div>
-
-                                        <div className='profile-info'>
-                                            <p className='lead fs-6 fw-semibold m-0'>Sundar1007</p>
-                                        </div>
-                                        <div className='mt-3'>
-                                            <button className="btn btn-outline-primary fs-6">
-                                                Update Profile
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div className="container-lg-fluid mb-lg-3 d-none d-lg-block">
+                                    <Profile />
                                 </div>
                             </nav>
                         </div>
                         <div className="col-lg-8 col-xl-9 col-xxl-10">
                             <div className='p-3'>
-                                <div className='d-flex justify-content-between align-items-center'>
+                                <div className='d-flex justify-content-end justify-content-lg-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}
                                     <div>
                                         <input type="checkbox" className="checkbox" id="checkbox" onClick={modeChange} />
@@ -110,7 +106,7 @@ export default function EmployeeDashboard() {
                                             <span className="ball"></span>
                                         </label>
                                     </div>
-                                    <div>
+                                    <div className='d-none d-lg-block'>
                                         <Link to={'/'} className='btn btn-danger'>Logout</Link>
                                     </div>
                                 </div>

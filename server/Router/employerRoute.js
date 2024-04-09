@@ -1,17 +1,14 @@
-// employerRoutes.js
-
 const express = require("express");
 const router = express.Router();
-const employerController = require("../module/EmployerControl");
+const EmployerRouter = require("../module/EmployerControl.js");
+const AdminRouter = require("../module/AdminControl.js");
 
-router.post("/api/project", employerController.createProject);
-router.get("/api/showproject",employerController.showingproject);
-router.get("/api/userdetails", employerController.getUsersDetails);
-router.post("/api/sendapprovalmail", employerController.sendApprovalMail);
-// 
- router.put("/sendapprovalmail/:id", employerController.sendApprovalMail1)
- router.get("/api/get", employerController.Getmethods)
-// 
-router.get("/:id/verify/:token", employerController.verifyToken);    
+router.post("/api/project", EmployerRouter.Createproject);
+router.get("/api/userdetails", EmployerRouter.GettinguserDetails);
+router.get("/api/showprojects", EmployerRouter.showProject);
+router.put("/api/mailapproval/:id", EmployerRouter.sendApprovalMail);
+//admin routes for admin
+router.post("/api/admin", AdminRouter.Createadmin);
+router.get("/api/getadmin", AdminRouter.GettingAdmin);
 
 module.exports = router;

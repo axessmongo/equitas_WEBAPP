@@ -1,71 +1,69 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import UserValidationModal from './modal/UserValidationModal';
+import { useDispatch } from 'react-redux';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
 
 export default function EmployeeUserValidation() {
-
-    const [userData, setUserData] = useState([]);
+    const [userData, setUserId] = useState([]);
     const [userModalShow, setUserModalShow] = useState(false);
-    const [userModalData, setUserModalData] = useState([])
+    const [userModalData, setUserModalData] = useState({});
+    const [updateUserValidation, setUpdateUserValidation] = useState(null); // Initialize with null
+    let loaderDispatch = useDispatch();
 
-    const userValidateData = async () => {
+    // Fetch user data from the server
+    const fetchUserData = async () => {
         try {
-            const res = 'http://localhost:4000/api/userdetails';
-            const response = await axios.get(res);
-            setUserData(response.data.data);
-            console.log(response.data.data);
+            const res = await axios.get('http://localhost:4000/api/userdetails');
+            setUserId(res.data.data);
+            console.log(userData);
         } catch (error) {
             console.error('Error fetching data:', error.message);
         }
-    }
+    };
 
+    // Fetch user data when the component mounts
     useEffect(() => {
-        userValidateData();
+        fetchUserData();
     }, []);
 
 
-    const approveUser = async (email) => {
-        try {
-            const res = `http://localhost:4000/api/sendapprovalmail`;
-            const response = await axios.post(res, { email }); // Passing mail parameter
-            if (response.status === 200) {
-                console.log('Approval email sent successfully');
-                // Handle success as needed
-            } else {
-                console.error('Approval email sending failed:', response.data.message);
-                // Handle failure as needed
-            }
-        } catch (error) {
-            console.error('Error sending approval email:', error.message);
-            // Handle error
+    // Update user validation status and send approval email
+    useEffect(() => {
+        if (updateUserValidation) {
+            const approveUserAPI = async () => {
+                try {
+                    loaderDispatch(setLoader(true))
+                    const res = await axios.put(`http://localhost:4000/api/mailapproval/${updateUserValidation.id}`, updateUserValidation);
+                    if (res.status === 200) {
+                        console.log('Approval email sent successfully');
+                        fetchUserData(); // Fetch updated user data
+                    } else {
+                        console.error('Approval email sending failed:', res.data.message);
+                    }
+                } catch (error) {
+                    console.error('Error sending approval email:', error.message);
+                } finally {
+                    loaderDispatch(setLoader(false))
+                }
+            };
+            approveUserAPI();
         }
-    }
+    }, [updateUserValidation]);
 
-    const vsd3131 = () => {
-        axios.post("http://localhost:4000/api/sendapprovalmail",)
-    }
+    // Approve user and set updated user validation
+    const approveUser = (id, updatedUser) => {
+        setUpdateUserValidation({ id, ...updatedUser, verified: true });
+    };
 
-
-
-
-
-
-    const rejectUser = async (id, mail) => {
-        console.log(id);
-        // try {
-        //     const res = 'http://localhost:4000/api/userdetails';
-        //     const response = await axios.get(res);
-        //     setUserData(response.data.data);
-        //     console.log(response.data.data);
-        // } catch (error) {
-        //     console.error('Error fetching data:', error.message);
-        // }
-    }
-
+    // Reject user - logic can be implemented here if needed
+    const rejectUser = () => {
+        // Implement rejection logic if needed
+    };
 
     return (
         <>
-            <div className='ourtable'>
+            <div className='ourtable table-responsive'>
                 <table className="table my-3">
                     <thead>
                         <tr>
@@ -78,27 +76,35 @@ export default function EmployeeUserValidation() {
                         </tr>
                     </thead>
                     <tbody>
-                        {userData.map((val, index) => (
-                            !val.verified && <tr key={index}>
-                                <td className='py-3'>{index + 1}</td>
-                                <td className='py-3'>{val.email}</td>
-                                <td className='py-3'>{val.phone}</td>
-                                <td className='py-3'>{val.company}</td>
-                                <td className='py-3'>
-                                    <a href="#" className="link-underline-dark text-decoration-none cursor" onClick={() => setUserModalShow(true) + setUserModalData(val)}>More Info</a>
-                                </td>
-                                <td className='py-3'>
-                                    <i className="bi bi-x-circle-fill text-danger fs-4 me-3 cursor" onClick={() => rejectUser()}></i>
-                                    <i className="bi bi-check-circle-fill text-success fs-4 cursor" onClick={() => approveUser(val.email)}></i>
-                                </td>
-                            </tr>
+                        {userData.map((user, index) => (
+                            !user.verified && (
+                                <tr key={user._id}>
+                                    <td className='py-3'>{index + 1}</td>
+                                    <td className='py-3'>{user.email}</td>
+                                    <td className='py-3'>{user.phone}</td>
+                                    <td className='py-3'>{user.company}</td>
+                                    <td className='py-3'>
+                                        <a href="#" className="link-underline-dark text-decoration-none cursor" onClick={() => { setUserModalShow(true); setUserModalData(user); }}>More Info</a>
+                                    </td>
+                                    {user.verified ?
 
+                                        <td>
+                                            User Approved
+                                        </td>
+
+                                        :
+                                        <td className='py-3'>
+                                            <i className="bi bi-x-circle-fill text-danger fs-4 me-3 cursor" onClick={() => rejectUser()}></i>
+                                            <i className="bi bi-check-circle-fill text-success fs-4 cursor" onClick={() => approveUser(user._id, user)}></i>
+                                        </td>
+                                    }
+                                </tr>
+                            )
                         ))}
                     </tbody>
                 </table>
             </div>
-            <UserValidationModal userData={userModalData} show={userModalShow}
-                onHide={() => setUserModalShow(false)} />
+            <UserValidationModal userData={userModalData} show={userModalShow} onHide={() => setUserModalShow(false)} />
         </>
-    )
+    );
 }
