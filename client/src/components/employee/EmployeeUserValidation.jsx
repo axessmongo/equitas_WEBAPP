@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import UserValidationModal from './modal/UserValidationModal';
 import { useDispatch } from 'react-redux';
 import { setLoader } from '../../globalstate/slices/loaderSlice';
+import Loader from '../../loader/Loader';
 
 export default function EmployeeUserValidation() {
     const [userData, setUserId] = useState([]);
@@ -14,11 +15,14 @@ export default function EmployeeUserValidation() {
     // Fetch user data from the server
     const fetchUserData = async () => {
         try {
+            loaderDispatch(setLoader(true))
             const res = await axios.get('http://localhost:4000/api/userdetails');
             setUserId(res.data.data);
             // console.log(userData);
         } catch (error) {
             console.error('Error fetching data:', error.message);
+        }finally{
+            loaderDispatch(setLoader(false))
         }
     };
 
@@ -63,6 +67,7 @@ export default function EmployeeUserValidation() {
 
     return (
         <>
+            {/* <Loader /> */}
             <div className='ourtable table-responsive'>
                 <table className="table my-3">
                     <thead>

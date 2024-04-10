@@ -45,44 +45,47 @@ export default function ClientBidsTable() {
 
   return (
     <>
-      <div className='ourtable table-responsive'>
-        <table className="table my-3">
-          <thead>
-            <tr>
-              <th className='py-3'>Auction No</th>
-              <th className='py-3'>Open Time</th>
-              <th className='py-3'>Close Time</th>
-              <th className='py-3'>Project Name</th>
-              <th className='py-3'>Update Bid Value</th>
-              <th className='py-3'>Last Bidded Value</th>
-              <th className='py-3'>More Info</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              ongoingData.map((data, index) => (
+  {biddedProjects && Object.keys(biddedProjects).length > 0 ? (
+    <div className='ourtable table-responsive'>
+      <table className="table my-3">
+        <thead>
+          <tr>
+            <th className='py-3'>Auction No</th>
+            <th className='py-3'>Open Time</th>
+            <th className='py-3'>Close Time</th>
+            <th className='py-3'>Project Name</th>
+            {/* <th className='py-3'>Update Bid Value</th> */}
+            <th className='py-3'>Bidded Value</th>
+            <th className='py-3'>More Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ongoingData.map((data, index) => (
+            Object.keys(biddedProjects).includes(data._id) && (
+              <tr key={index}>
+                <td className='py-3'><p className='_id'>{data._id}</p></td>
+                <td className='py-3'>{data.opentime}</td>
+                <td className='py-3'>{data.closetime}</td>
+                <td className='py-3'>{data.projectname}</td>
+                {/* <td className='py-3'>
+                  <button className="btn btn-success" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Edit Bid value</button>
+                </td> */}
+                <td className='py-3'>₹ {biddedProjects[data._id]}</td>
+                <td className='py-3'><a className="link-underline-dark text-decoration-none cursor" onClick={() => { setOngoingShow(true); setOngoingSelectData(data); }}>More Info</a></td>
+              </tr>
+            )
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div className='justify-content-center align-items-center d-flex position-absolute top-50 start-50 translate-middle alert alert-warning'>
+      <p className='mb-0'>You are not invested any Bids</p>
+    </div>
+  )}
+  <EmplouyeeOngoingModalTable selectedData={ongoingSelectData} show={ongoingShow} onHide={() => setOngoingShow(false)} />
+  <BiddingModal selectedData={ongoingSelectData} show={biddingShow} onHide={() => setBiddingShow(false)} onClose={() => setBiddingShow(false)} />
+</>
 
-                Object.keys(biddedProjects).includes(data._id) && <tr key={index}>
-                  <td className='py-3'>{index + 1}</td>
-                  <td className='py-3'>{data.opentime}</td>
-                  <td className='py-3'>{data.closetime}</td>
-                  <td className='py-3'>{data.projectname}</td>
-                  <td className='py-3'>
-                    <button className="btn btn-success" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Edit Bid value</button>
-                  </td>
-                  <td className='py-3'>₹ {biddedProjects[data._id]}</td>
-                  {/* <td className='py-3'><button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Interested</button></td> */}
-                  <td className='py-3'><a className="link-underline-dark text-decoration-none cursor" onClick={() => { setOngoingShow(true); setOngoingSelectData(data); }}>More Info</a></td>
-                </tr>
-
-
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-      <EmplouyeeOngoingModalTable selectedData={ongoingSelectData} show={ongoingShow} onHide={() => setOngoingShow(false)} />
-      <BiddingModal selectedData={ongoingSelectData} show={biddingShow} onHide={() => setBiddingShow(false)} onClose={() => setBiddingShow(false)} />
-    </>
   )
 }

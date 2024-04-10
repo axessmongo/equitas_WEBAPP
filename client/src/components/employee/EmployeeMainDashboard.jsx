@@ -94,7 +94,7 @@ export default function EmployeeDashboard() {
                                 </div>
                             </nav>
                         </div>
-                        <div className="col-lg-8 col-xl-9 col-xxl-10">
+                        <div className="col-lg-8 col-xl-9 col-xxl-10 position-relative">
                             <div className='p-3'>
                                 <div className='d-flex justify-content-end justify-content-lg-between align-items-center'>
                                     {/* <p className='lead fs-6 fw-normal'>{window.location.pathname.slice(1)}</p> */}

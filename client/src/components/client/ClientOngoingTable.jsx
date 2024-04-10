@@ -65,7 +65,7 @@ export default function ClientOngoingTable() {
                         {
                             ongoingData.map((data, index) => (
                                 <tr key={index}>
-                                    <td className='py-3'>{index + 1}</td>
+                                    <td className='py-3'><p className='_id'>{data._id}</p></td>
                                     <td className='py-3'>{data.opentime}</td>
                                     <td className='py-3'>{data.closetime}</td>
                                     <td className='py-3'>{data.projectname}</td>
@@ -75,11 +75,11 @@ export default function ClientOngoingTable() {
                                             // If project is already in interested projects object, hide the "Interested" button
                                             <>
                                                 <span className='me-3'>Bidded</span>
-                                                <i class="bi bi-pencil-square cursor" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}></i>
+                                                {/* <i class="bi bi-pencil-square cursor" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}></i> */}
                                             </>
                                         ) : (
                                             // If project is not in interested projects object, show the "Interested" button
-                                            <button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Interested</button>
+                                            <button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Bid Here</button>
                                         )
                                         }
                                     </td>

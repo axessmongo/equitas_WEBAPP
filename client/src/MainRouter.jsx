@@ -17,6 +17,7 @@ import EmployeeDashboard from './components/employee/EmployeeMainDashboard';
 import EmployeeAward from './components/employee/EmployeeAward';
 import ClientRegister from './components/client/ClientRegister';
 import CheckMail from './components/CheckMail';
+import ClientAward from './components/client/ClientAward';
 // import ForgotPassword from './components/client/ForgotPassword';
 
 export default function MainRouter() {
@@ -34,6 +35,7 @@ export default function MainRouter() {
                         <Route path='ongoing' element={<ClientOngoingTable />} />
                         <Route path='clientselected' element={<ClientSelectedTable />} />
                         <Route path='clientbids' element={<ClientBidsTable />} />
+                        <Route path='myprojects' element={<ClientAward />} />
                     </Route>
                     <Route path="/register" element={<Register />} />
                     <Route path='/forgotPassword' element={<ForgotPassword />} />

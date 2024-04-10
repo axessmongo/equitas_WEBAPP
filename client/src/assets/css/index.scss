@@ -197,13 +197,20 @@ button.btn-close::before {
         }
     }
 
-    #navbarTogglerDemo01{
+    #navbarTogglerDemo01 {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
         background-color: #f6f7f8;
     }
+}
+
+._id {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
 }
 
 @media (min-width: 992px) {

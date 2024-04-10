@@ -32,7 +32,7 @@ export default function ClientSelectedTable() {
       let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
       if (res.status === 200) {
         alert('Bookmark Added Successfully');
-      }else if(res.status === 201){
+      } else if (res.status === 201) {
         alert('Bookmark removed Successfully');
       }
       dispatch(fetchUserData(getUserId));
@@ -43,57 +43,60 @@ export default function ClientSelectedTable() {
 
   useEffect(() => {
     getOngoingData();
-    // console.log(getIntrestedProjects);
+    console.log(ongoingData);
   }, []);
 
   return (
     <>
-      <div className='ourtable table-responsive'>
-        <table className="table my-3">
-          <thead>
-            <tr>
-              <th className='py-3'>Auction No</th>
-              <th className='py-3'>Open Time</th>
-              <th className='py-3'>Close Time</th>
-              <th className='py-3'>Project Name</th>
-              <th className='py-3'>Interested</th>
-              <th className='py-3'>More Info</th>
-              <th className='py-3'>Intrested Projects</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              getIntrestedProjects ? ongoingData.map((data, index) => (
-                getIntrestedProjects.includes(data._id) ?
+      {getIntrestedProjects.length > 0 ? (
+        <div className='ourtable table-responsive'>
+          <table className="table my-3">
+            <thead>
+              <tr>
+                <th className='py-3'>Auction No</th>
+                <th className='py-3'>Open Time</th>
+                <th className='py-3'>Close Time</th>
+                <th className='py-3'>Project Name</th>
+                <th className='py-3'>Interested</th>
+                <th className='py-3'>More Info</th>
+                <th className='py-3'>Interested Projects</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ongoingData.map((data, index) =>
+                getIntrestedProjects.includes(data._id) ? (
                   <tr key={index}>
-                    <td className='py-3'>{index + 1}</td>
+                    <td className='py-3'><p className='_id'>{data._id}</p></td>
                     <td className='py-3'>{data.opentime}</td>
                     <td className='py-3'>{data.closetime}</td>
                     <td className='py-3'>{data.projectname}</td>
                     <td className='py-3'>
-                      {biddedProjects &&
-                        Object.keys(biddedProjects).includes(data._id) ? (
-                        // If project is already in interested projects object, hide the "Interested" button
+                      {biddedProjects && Object.keys(biddedProjects).includes(data._id) ? (
                         <>
                           <span className='me-3'>Bidded</span>
-                          <i class="bi bi-pencil-square cursor" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}></i>
+                          {/* <i className="bi bi-pencil-square cursor" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}></i> */}
                         </>
                       ) : (
-                        // If project is not in interested projects object, show the "Interested" button
                         <button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Interested</button>
-                      )
-                      }
+                      )}
                     </td>
                     <td className='py-3'><a className="link-underline-dark text-decoration-none cursor" onClick={() => { setOngoingShow(true); setOngoingSelectData(data); }}>More Info</a></td>
                     <td className='py-3'><a className={`bi bi-bookmark-fill cursor text-warning`} onClick={() => setBookmark(data._id)}></a></td>
-                  </tr> : null
-              )) : "No project is there"
-            }
-          </tbody>
-        </table>
-      </div>
+                  </tr>
+                ) : null
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className='justify-content-center align-items-center d-flex position-absolute top-50 start-50 translate-middle alert alert-warning'>
+          <p className='mb-0'>No Intrested Project Is Here</p>
+        </div>
+      )}
+
       <EmplouyeeOngoingModalTable selectedData={ongoingSelectData} show={ongoingShow} onHide={() => setOngoingShow(false)} />
       <BiddingModal selectedData={ongoingSelectData} show={biddingShow} onHide={() => setBiddingShow(false)} onClose={() => setBiddingShow(false)} />
     </>
+
   )
 }
