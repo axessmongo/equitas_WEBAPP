@@ -4,6 +4,7 @@ import EmplouyeeOngoingModalTable from '../employee/modal/EmplouyeeOngoingModalT
 import BiddingModal from './modal/BiddingModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../../globalstate/slices/userDataSlice';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
 
 export default function ClientOngoingTable() {
     const [ongoingShow, setOngoingShow] = useState(false);
@@ -16,31 +17,39 @@ export default function ClientOngoingTable() {
     const getIntrestedProjects = useSelector(state => state.userdata.data.intestedprojects);
     const biddedProjects = useSelector(state => state.userdata.data.biddedprojects);
     const dispatch = useDispatch();
+    const loaderDispatch = useDispatch();
 
 
     const getOngoingData = async () => {
         try {
+            loaderDispatch(setLoader(true))
             const res = await axios.get('http://localhost:4000/api/showprojects');
             setOngoingData(res.data.data);
         } catch (err) {
+            loaderDispatch(setLoader(false))
             console.log(err)
+        } finally {
+            loaderDispatch(setLoader(false))
         }
     }
 
     const setBookmark = async (projectid) => {
         console.log(projectid);
         try {
-          let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
-          if (res.status === 200) {
-            alert('Bookmark Added Successfully');
-          }else if(res.status === 201){
-            alert('Bookmark removed Successfully');
-          }
-          dispatch(fetchUserData(getUserId));
+            loaderDispatch(setLoader(true))
+            let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
+            if (res.status === 200) {
+                alert('Bookmark Added Successfully');
+            } else if (res.status === 201) {
+                alert('Bookmark removed Successfully');
+            }
+            dispatch(fetchUserData(getUserId));
         } catch (err) {
-          console.log(err);
+            console.log(err);
+        } finally {
+            loaderDispatch(setLoader(false))
         }
-      }
+    }
     useEffect(() => {
         getOngoingData();
         // console.log(biddedProjects);

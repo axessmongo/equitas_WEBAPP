@@ -4,6 +4,7 @@ import EmplouyeeOngoingModalTable from '../employee/modal/EmplouyeeOngoingModalT
 import BiddingModal from './modal/BiddingModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../../globalstate/slices/userDataSlice';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
 
 export default function ClientBidsTable() {
   const [ongoingShow, setOngoingShow] = useState(false);
@@ -16,13 +17,17 @@ export default function ClientBidsTable() {
   const getIntrestedProjects = useSelector(state => state.userdata.data.intestedprojects);
   const biddedProjects = useSelector(state => state.userdata.data.biddedprojects);
   const dispatch = useDispatch();
+  const loaderDispatch = useDispatch();
 
   const getOngoingData = async () => {
     try {
+      loaderDispatch(setLoader(true))
       const res = await axios.get('http://localhost:4000/api/showprojects');
       setOngoingData(res.data.data);
     } catch (err) {
       console.log(err)
+    }finally{
+      loaderDispatch(setLoader(false))
     }
   }
 

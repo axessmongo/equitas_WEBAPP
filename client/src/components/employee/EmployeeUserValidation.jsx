@@ -1,11 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import UserValidationModal from './modal/UserValidationModal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { setLoader } from '../../globalstate/slices/loaderSlice';
-import Loader from '../../loader/Loader';
 
-export default function EmployeeUserValidation() {
+export default function 
+
+
+
+
+EmployeeUserValidation() {
     const [userData, setUserId] = useState([]);
     const [userModalShow, setUserModalShow] = useState(false);
     const [userModalData, setUserModalData] = useState({});
@@ -22,6 +26,7 @@ export default function EmployeeUserValidation() {
         } catch (error) {
             console.error('Error fetching data:', error.message);
         }finally{
+            
             loaderDispatch(setLoader(false))
         }
     };
@@ -67,7 +72,6 @@ export default function EmployeeUserValidation() {
 
     return (
         <>
-            {/* <Loader /> */}
             <div className='ourtable table-responsive'>
                 <table className="table my-3">
                     <thead>

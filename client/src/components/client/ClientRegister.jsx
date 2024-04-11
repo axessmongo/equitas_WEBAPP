@@ -15,12 +15,12 @@ const ClientRegister = () => {
         try {
             loaderDispatch(setLoader(true))
             const response = await axios.post('http://localhost:4000/api/register', values);
-            alert('Registered successfully')
             console.log('Response:', response.data.data);
             setRegStatus(true);
         } catch (error) {
             // Handle error
             console.error('Error:', error);
+            loaderDispatch(setLoader(false))
         } finally {
             loaderDispatch(setLoader(false))
         }

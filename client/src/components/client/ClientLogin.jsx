@@ -5,6 +5,10 @@ import axios from 'axios';
 import ForgotModal from './modal/ForgatModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData, setUserId } from '../../globalstate/slices/userDataSlice';
+import Loader from '../../loader/Loader';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
+import ToastModal from '../../toast/ToastModal';
+import { setToast } from '../../globalstate/slices/ToastSlice';
 
 const initialValues = {
   email: '',
@@ -16,28 +20,36 @@ export default function ClientLogin() {
   const [adminDetails, setAdminDetails] = useState();
   const navigate = useNavigate();
   const passData = useDispatch();
+  const loaderDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   async function validateUser(values, resetForm) {
     try {
+      loaderDispatch(setLoader(true))
       const response = await axios.post('http://localhost:4000/api/login', values);
       // console.log(response.data);
       resetForm();
       await passData(setUserId(response.data.data));
       await passData(fetchUserData(response.data.data));
       // await getAdminvalues(); // Fetch admin details again after user login
-      if (adminDetails.includes(values.email) ) {
-        alert('Welcome admin');
+      if (adminDetails.includes(values.email)) {
+        // alert('Welcome admin');
+        await dispatch(setToast({ status: "success", message: `welocome ${'admin'}` }))
         navigate('/EmployeeDashboard/employeeuservalidation');
       } else {
-        alert('Welcome Client');
+        // alert('Welcome Client');
+        await dispatch(setToast({ status: "success", message: `welocome ${'client'}`}))
         navigate('/clientdashboard/ongoing');
       }
     } catch (error) {
       if (error.response.status === 301) {
-        alert('Still You are not verified ');
+        dispatch(setToast({ status: "user-not-verified", message: "Still User is not verified ourside" }))
       } else {
-        alert('give valid info');
+        dispatch(setToast({ status: "user-not-found", message: "Creditinals not valid" }))
       }
+    }
+    finally {
+      loaderDispatch(setLoader(false))
     }
   }
 
