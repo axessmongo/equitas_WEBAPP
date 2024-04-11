@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 let initialState = {
-    id: null,
+    minval: null,
     data: null,
     loading: false,
     error: null
@@ -26,7 +26,7 @@ const userDataSlice = createSlice({
     initialState,
     reducers: {
         setUserId: (state, action) => {
-            state.id = action.payload
+            state.minval = action.payload
         }
     },
     extraReducers: (builder) => {

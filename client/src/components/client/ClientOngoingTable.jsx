@@ -5,17 +5,18 @@ import BiddingModal from './modal/BiddingModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from '../../globalstate/slices/userDataSlice';
 import { setLoader } from '../../globalstate/slices/loaderSlice';
+import { setToast } from '../../globalstate/slices/ToastSlice';
 
 export default function ClientOngoingTable() {
     const [ongoingShow, setOngoingShow] = useState(false);
     const [biddingShow, setBiddingShow] = useState(false);
     const [ongoingData, setOngoingData] = useState([]);
     const [ongoingSelectData, setOngoingSelectData] = useState(null); // initialize with null
-    const userId = useSelector(state => state.userdata?.id); // Ensure userdata is not undefined
+    const userId = useSelector(state => state.userdata.minval?.user_id); // Ensure userdata is not undefined
     const mode = useSelector(state => state.mode);
-    const getUserId = useSelector(state => state.userdata.id);
-    const getIntrestedProjects = useSelector(state => state.userdata.data.intestedprojects);
-    const biddedProjects = useSelector(state => state.userdata.data.biddedprojects);
+    const getUserId = useSelector(state => state.userdata);
+    const getIntrestedProjects = useSelector(state => state.userdata.data?.intestedprojects);
+    const biddedProjects = useSelector(state => state.userdata.data?.biddedprojects);
     const dispatch = useDispatch();
     const loaderDispatch = useDispatch();
 
@@ -33,17 +34,17 @@ export default function ClientOngoingTable() {
         }
     }
 
-    const setBookmark = async (projectid) => {
+    const setBookmark = async (projectid, projectname) => {
         console.log(projectid);
         try {
             loaderDispatch(setLoader(true))
             let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
             if (res.status === 200) {
-                alert('Bookmark Added Successfully');
+                dispatch(setToast({ status: "bookmark-added", message: `${projectname} is added into intrested` }))
             } else if (res.status === 201) {
-                alert('Bookmark removed Successfully');
+                dispatch(setToast({ status: "bookmark-removed", message:`${projectname} is removed into intrested` }))
             }
-            dispatch(fetchUserData(getUserId));
+            dispatch(fetchUserData(userId));
         } catch (err) {
             console.log(err);
         } finally {
@@ -94,9 +95,9 @@ export default function ClientOngoingTable() {
                                     </td>
                                     {/* <td className='py-3'><button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Interested</button></td> */}
                                     <td className='py-3'><a className="link-underline-dark text-decoration-none cursor" onClick={() => { setOngoingShow(true); setOngoingSelectData(data); }}>More Info</a></td>
-                                    {getIntrestedProjects.includes(data._id) ?
-                                        <td className='py-3'><a className={`bi bi-bookmark-fill cursor text-warning`} onClick={() => setBookmark(data._id)}></a></td> :
-                                        <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`} onClick={() => setBookmark(data._id)}></a></td>}
+                                    {getIntrestedProjects?.includes(data._id) ?
+                                        <td className='py-3'><a className={`bi bi-bookmark-fill cursor text-warning`} onClick={() => setBookmark(data._id, data.projectname)}></a></td> :
+                                        <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`} onClick={() => setBookmark(data._id, data.projectname)}></a></td>}
                                 </tr>
                             ))
                         }

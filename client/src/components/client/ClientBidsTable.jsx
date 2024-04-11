@@ -14,8 +14,8 @@ export default function ClientBidsTable() {
   const userId = useSelector(state => state.userdata?.id); // Ensure userdata is not undefined
   const mode = useSelector(state => state.mode);
   const getUserId = useSelector(state => state.userdata.id);
-  const getIntrestedProjects = useSelector(state => state.userdata.data.intestedprojects);
-  const biddedProjects = useSelector(state => state.userdata.data.biddedprojects);
+  const getIntrestedProjects = useSelector(state => state.userdata.data?.intestedprojects);
+  const biddedProjects = useSelector(state => state.userdata.data?.biddedprojects);
   const dispatch = useDispatch();
   const loaderDispatch = useDispatch();
 

@@ -22,6 +22,7 @@ export default function ClientLogin() {
   const passData = useDispatch();
   const loaderDispatch = useDispatch();
   const dispatch = useDispatch();
+  const selector = useSelector(state => state.userdata)
 
   async function validateUser(values, resetForm) {
     try {
@@ -30,15 +31,15 @@ export default function ClientLogin() {
       // console.log(response.data);
       resetForm();
       await passData(setUserId(response.data.data));
-      await passData(fetchUserData(response.data.data));
+      await passData(fetchUserData(response.data.data.user_id));
       // await getAdminvalues(); // Fetch admin details again after user login
       if (adminDetails.includes(values.email)) {
         // alert('Welcome admin');
-        await dispatch(setToast({ status: "success", message: `welocome ${'admin'}` }))
+        await dispatch(setToast({ status: "user-success", message: `welocome ${response.data.data.user_name}` }))
         navigate('/EmployeeDashboard/employeeuservalidation');
       } else {
         // alert('Welcome Client');
-        await dispatch(setToast({ status: "success", message: `welocome ${'client'}`}))
+        await dispatch(setToast({ status: "user-success", message: `welocome ${response.data.data.user_name}`}))
         navigate('/clientdashboard/ongoing');
       }
     } catch (error) {

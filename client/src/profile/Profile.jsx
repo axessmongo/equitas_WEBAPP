@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 export default function Profile() {
     let mode = useSelector((state) => state.mode);
-    let userName = useSelector((state) => state.userdata.data.fullname);
+    let userName = useSelector((state) => state.userdata.data?.fullname);
 
     // console.log(userName);
     return (

@@ -30,7 +30,7 @@ const toastModifier = createSlice({
                             autoClose: 3000,
                             position: "bottom-right",
                         })
-                    break; 
+                    break;
                 case 'user-not-found':
                     toast.error(message,
                         {
@@ -38,8 +38,42 @@ const toastModifier = createSlice({
                             position: "bottom-right",
                         })
                     break;
+
+
+                // BookMark Status
+
+                case 'bookmark-added':
+                    toast.success(message,
+                        {
+                            autoClose: 3000,
+                            position: "bottom-right",
+                        })
+                    break;
+                case 'bookmark-removed':
+                    toast.warn(message, {
+                        autoClose: 3000,
+                        position: "bottom-right",
+                    })
+                    break;
+
+                // Bidded Status
+
+                case 'bid-success':
+                    toast.success(message,
+                        {
+                            autoClose: 4000,
+                            position: "bottom-right",
+                        })
+                    break;
+                case 'bid-error':
+                    toast.error(message, {
+                        autoClose: 3000,
+                        position: "bottom-right",
+                    })
+                    break;
+
                 default:
-                    toast(message)
+                    toast('something went wrong')
             }
         }
     }
