@@ -8,7 +8,7 @@ export default function ForgotModal(props) {
 
     const handleSubmit = () => {
         setLoading(true);
-        axios.post('http://localhost:5000/api/password', { email })
+        axios.post('/api/emailpassword', { email })
             .then(response => {
                 
                 alert('Password reset request sent successfully')

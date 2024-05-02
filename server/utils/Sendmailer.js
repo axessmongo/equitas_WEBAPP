@@ -5,16 +5,16 @@ const Sendmailer = async (email, resetToken) => {
   try {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
-      port: 465, // Use port 465 for SMTP over SSL/TLS
+      port: 465, 
       secure: true, // Use SSL
       auth: {
-        user: process.env.user, // Wrap email in quotes
+        user: process.env.user, 
         pass: process.env.password,
       },
     });
 
     const mailOptions = {
-      from: process.env.user, // Specify a valid email address
+      from: process.env.user,
       to: email,
       subject: "Password Reset Link",
       text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
@@ -29,7 +29,7 @@ const Sendmailer = async (email, resetToken) => {
     console.log("Email sent successfully");
   } catch (error) {
     console.error("Error sending email:", error);
-    throw error;
+    return "Error sending email. Please try again later.";
   }
 };
 

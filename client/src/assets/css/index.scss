@@ -1,5 +1,6 @@
 @use './clientform';
 @use './darkmode';
+@use './loader';
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -15,6 +16,11 @@ $bgcolor: #f8f9fa;
 
 @mixin shadowmixin($shadow) {
     box-shadow: $shadow;
+}
+
+
+.myshadow {
+    @include shadowmixin($shadow: $shadow-1)
 }
 
 * {
@@ -41,6 +47,27 @@ $bgcolor: #f8f9fa;
 
 .cursor {
     cursor: pointer;
+}
+
+.btn-close {
+    box-shadow: none !important;
+    background: none;
+    opacity: .8;
+}
+
+button.btn-close::before {
+    content: "\F659";
+    color: var(--bs-danger);
+    display: inline-block;
+    font-family: "bootstrap-icons" !important;
+    font-style: normal;
+    font-weight: 900;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -0.125em;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
 }
 
 .dashboard {
@@ -77,6 +104,7 @@ $bgcolor: #f8f9fa;
     .dash-sticky {
         position: sticky;
         top: 0;
+        z-index: 999;
     }
 
 }
@@ -85,7 +113,6 @@ $bgcolor: #f8f9fa;
     background: white;
     border-radius: 10px;
     box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
-    overflow: hidden;
     text-align: center;
     margin: 20px 0;
 
@@ -96,9 +123,6 @@ $bgcolor: #f8f9fa;
     }
 }
 
-.myshadow {
-    @include shadowmixin($shadow: $shadow-1)
-}
 
 
 .checkbox {
@@ -152,5 +176,46 @@ $bgcolor: #f8f9fa;
             font-weight: 700;
             font-size: 18px;
         }
+    }
+}
+
+@media (max-width: 992px) {
+    .container-lg-fluid {
+        width: 100%;
+    }
+
+    .navbar {
+        min-height: auto !important;
+    }
+
+    .profile {
+        background-color: transparent !important;
+
+        p {
+            font-size: 10px !important;
+            font-weight: 400 !important;
+        }
+    }
+
+    #navbarTogglerDemo01 {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #f6f7f8;
+    }
+}
+
+._id {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: auto;
+}
+
+@media (min-width: 992px) {
+    .container-lg-fluid {
+        width: 100%;
+        padding: calc(var(--bs-gutter-x) * 0.5);
     }
 }

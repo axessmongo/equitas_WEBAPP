@@ -1,13 +1,64 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import EmplouyeeOngoingModalTable from '../employee/modal/EmplouyeeOngoingModalTable';
+import BiddingModal from './modal/BiddingModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../../globalstate/slices/userDataSlice';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
+import { setToast } from '../../globalstate/slices/ToastSlice';
 
 export default function ClientOngoingTable() {
+    const [ongoingShow, setOngoingShow] = useState(false);
+    const [biddingShow, setBiddingShow] = useState(false);
+    const [ongoingData, setOngoingData] = useState([]);
+    const [ongoingSelectData, setOngoingSelectData] = useState(null); // initialize with null
+    const userId = useSelector(state => state.userdata.minval?.user_id); // Ensure userdata is not undefined
+    const mode = useSelector(state => state.mode);
+    const getUserId = useSelector(state => state.userdata);
+    const getIntrestedProjects = useSelector(state => state.userdata.data?.intestedprojects);
+    const biddedProjects = useSelector(state => state.userdata.data?.biddedprojects);
+    const dispatch = useDispatch();
+    const loaderDispatch = useDispatch();
 
-    let mode = useSelector(state => state.mode)
+
+    const getOngoingData = async () => {
+        try {
+            loaderDispatch(setLoader(true))
+            const res = await axios.get('http://localhost:4000/api/showprojects');
+            setOngoingData(res.data.data);
+        } catch (err) {
+            loaderDispatch(setLoader(false))
+            console.log(err)
+        } finally {
+            loaderDispatch(setLoader(false))
+        }
+    }
+
+    const setBookmark = async (projectid, projectname) => {
+        console.log(projectid);
+        try {
+            loaderDispatch(setLoader(true))
+            let res = await axios.post(`http://localhost:4000/api/intrestedprojects/${userId}`, { projectid });
+            if (res.status === 200) {
+                dispatch(setToast({ status: "bookmark-added", message: `${projectname} is added into intrested` }))
+            } else if (res.status === 201) {
+                dispatch(setToast({ status: "bookmark-removed", message:`${projectname} is removed into intrested` }))
+            }
+            dispatch(fetchUserData(userId));
+        } catch (err) {
+            console.log(err);
+        } finally {
+            loaderDispatch(setLoader(false))
+        }
+    }
+    useEffect(() => {
+        getOngoingData();
+        // console.log(biddedProjects);
+    }, []);
 
     return (
         <>
-            <div className='ourtable'>
+            <div className='ourtable table-responsive'>
                 <table className="table my-3">
                     <thead>
                         <tr>
@@ -21,91 +72,40 @@ export default function ClientOngoingTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className='py-3'>1</td>
-                            <td className='py-3'>Thu Mar 11 2024 16:24:10</td>
-                            <td className='py-3'>Sun Mar 14 2024 16:24:10</td>
-                            <td className='py-3'>Winxo corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
-                        </tr>
-
-                        <tr>
-                            <td className='py-3'>2</td>
-                            <td className='py-3'>Fri Mar 12 2024 14:30:45</td>
-                            <td className='py-3'>Mon Mar 15 2024 14:30:45</td>
-                            <td className='py-3'>ABC Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark-fill cursor ${mode ? 'text-warning' : 'text-dark'}`}></a></td>
-                        </tr>
-                        <tr>
-                            <td className='py-3'>3</td>
-                            <td className='py-3'>Sat Mar 13 2024 10:15:20</td>
-                            <td className='py-3'>Tue Mar 16 2024 10:15:20</td>
-                            <td className='py-3'>XYZ Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
-                        </tr>
-
-                        <tr>
-                            <td className='py-3'>4</td>
-                            <td className='py-3'>Sun Mar 14 2024 12:45:30</td>
-                            <td className='py-3'>Wed Mar 17 2024 12:45:30</td>
-                            <td className='py-3'>Tech Innovations Inc.</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
-                        </tr>
-
-                        <tr>
-                            <td className='py-3'>5</td>
-                            <td className='py-3'>Mon Mar 15 2024 09:00:00</td>
-                            <td className='py-3'>Thu Mar 18 2024 09:00:00</td>
-                            <td className='py-3'>Global Solutions Ltd.</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
-                        </tr>
-
-                        <tr>
-                            <td className='py-3'>6</td>
-                            <td className='py-3'>Tue Mar 16 2024 18:20:15</td>
-                            <td className='py-3'>Fri Mar 19 2024 18:20:15</td>
-                            <td className='py-3'>InnovateX Corp</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark-fill cursor ${mode ? 'text-warning' : 'text-dark'}`}></a></td>
-                        </tr>
-
-                        <tr>
-                            <td className='py-3'>7</td>
-                            <td className='py-3'>Wed Mar 17 2024 14:55:50</td>
-                            <td className='py-3'>Sat Mar 20 2024 14:55:50</td>
-                            <td className='py-3'>TechSolutions LLC</td>
-                            <td className='py-3'><button className='btn btn-success'>Interested</button></td>
-                            <td className='py-3'>
-                                <a className="link-underline-dark text-decoration-none cursor">More Info</a>
-                            </td>
-                            <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`}></a></td>
-                        </tr>
+                        {
+                            ongoingData.map((data, index) => (
+                                <tr key={index}>
+                                    <td className='py-3'><p className='_id'>{data._id}</p></td>
+                                    <td className='py-3'>{data.opentime}</td>
+                                    <td className='py-3'>{data.closetime}</td>
+                                    <td className='py-3'>{data.projectname}</td>
+                                    <td className='py-3'>
+                                        {biddedProjects &&
+                                            Object.keys(biddedProjects).includes(data._id) ? (
+                                            // If project is already in interested projects object, hide the "Interested" button
+                                            <>
+                                                <span className='me-3'>Bidded</span>
+                                                {/* <i class="bi bi-pencil-square cursor" onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}></i> */}
+                                            </>
+                                        ) : (
+                                            // If project is not in interested projects object, show the "Interested" button
+                                            <button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Bid Here</button>
+                                        )
+                                        }
+                                    </td>
+                                    {/* <td className='py-3'><button className='btn btn-success' onClick={() => { setBiddingShow(true); setOngoingSelectData(data); }}>Interested</button></td> */}
+                                    <td className='py-3'><a className="link-underline-dark text-decoration-none cursor" onClick={() => { setOngoingShow(true); setOngoingSelectData(data); }}>More Info</a></td>
+                                    {getIntrestedProjects?.includes(data._id) ?
+                                        <td className='py-3'><a className={`bi bi-bookmark-fill cursor text-warning`} onClick={() => setBookmark(data._id, data.projectname)}></a></td> :
+                                        <td className='py-3'><a className={`bi bi-bookmark cursor ${mode ? 'text-light' : 'text-dark'}`} onClick={() => setBookmark(data._id, data.projectname)}></a></td>}
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>
+            <EmplouyeeOngoingModalTable selectedData={ongoingSelectData} show={ongoingShow} onHide={() => setOngoingShow(false)} />
+            <BiddingModal selectedData={ongoingSelectData} show={biddingShow} onHide={() => setBiddingShow(false)} onClose={() => setBiddingShow(false)} />
         </>
-    )
+    );
 }

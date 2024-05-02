@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Assuming axios is installed and properly configured
+import axios from 'axios';
 import ForgotModal from './modal/ForgatModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserData, setUserId } from '../../globalstate/slices/userDataSlice';
+import Loader from '../../loader/Loader';
+import { setLoader } from '../../globalstate/slices/loaderSlice';
+import ToastModal from '../../toast/ToastModal';
+import { setToast } from '../../globalstate/slices/ToastSlice';
 
 const initialValues = {
   email: '',
@@ -11,21 +17,67 @@ const initialValues = {
 
 export default function ClientLogin() {
   const [forgotModalShow, setForgotModalShow] = useState(false);
+  const [adminDetails, setAdminDetails] = useState();
   const navigate = useNavigate();
+  const passData = useDispatch();
+  const loaderDispatch = useDispatch();
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.userdata)
 
+<<<<<<< HEAD
   function validateUser(values, resetForm) {
     axios.post('http://localhost:5000/api/login', values)
       .then(response => {
         console.log(response.data.data);
         alert('welcome to you');
         resetForm();
+=======
+  async function validateUser(values, resetForm) {
+    try {
+      loaderDispatch(setLoader(true))
+      const response = await axios.post('http://localhost:4000/api/login', values);
+      // console.log(response.data);
+      resetForm();
+      await passData(setUserId(response.data.data));
+      await passData(fetchUserData(response.data.data.user_id));
+      // await getAdminvalues(); // Fetch admin details again after user login
+      if (adminDetails.includes(values.email)) {
+        // alert('Welcome admin');
+        await dispatch(setToast({ status: "user-success", message: `welocome ${response.data.data.user_name}` }))
+        navigate('/EmployeeDashboard/employeeuservalidation');
+      } else {
+        // alert('Welcome Client');
+        await dispatch(setToast({ status: "user-success", message: `welocome ${response.data.data.user_name}`}))
+>>>>>>> 56134be005ddf81f35b1c584b79963c0a4ba6126
         navigate('/clientdashboard/ongoing');
-      })
-      .catch(error => {
-        console.error('Login failed:', error);
-        // Handle login error, such as displaying an error message
-      });
+      }
+    } catch (error) {
+      if (error.response.status === 301) {
+        dispatch(setToast({ status: "user-not-verified", message: "Still User is not verified ourside" }))
+      } else {
+        dispatch(setToast({ status: "user-not-found", message: "Creditinals not valid" }))
+      }
+    }
+    finally {
+      loaderDispatch(setLoader(false))
+    }
   }
+
+  async function getAdminvalues() {
+    try {
+      const response = await axios.get('http://localhost:4000/api/getadmin');
+      await setAdminDetails(response.data.data.email);
+      // await console.log(adminDetails); // Corrected typo here
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAdminvalues();
+  }, []);
+
+
 
   return (
     <>
@@ -98,6 +150,11 @@ export default function ClientLogin() {
                   <span className="d-block text-danger">{touched.password && errors.password && errors.password}</span>
                   <div className="container-login100-form-btn">
                     <input type="submit" value="Login" className="login100-form-btn" />
+                  </div>
+                  <div className="text-center p-t-12 pt-3">
+                    <Link className="txt2 cursor" to={'/clientregister'}>
+                      New User / Signup?
+                    </Link>
                   </div>
                   <div className="text-center p-t-12 pt-3">
                     <span className="txt1">Forgot </span>
