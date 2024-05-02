@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const ForgotPassword = ({ match }) => {
-  const { id, token } = useParams(); 
+  const { id, token } = useParams();
   const [verificationStatus, setVerificationStatus] = useState('pending');
-  
+
   useEffect(() => {
     const verifyForgetPassword = async () => {
       try {
-        const response = await axios.get(`${id}/${token}`);
+        const response = await axios.get(`http://localhost:5000/${id}/${token}`);
         if (response.data.message === 'invalid link') {
           setVerificationStatus('invalid');
         } else {

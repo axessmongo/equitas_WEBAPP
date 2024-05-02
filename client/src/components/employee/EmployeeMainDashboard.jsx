@@ -59,6 +59,11 @@ export default function EmployeeDashboard() {
                                                 </NavLink>
                                             </li>
                                             <li className="nav-item">
+                                                <NavLink to={'employeeSara'} className="nav-link">
+                                                    <i className="bi bi-folder-plus"></i> Create Sara
+                                                </NavLink>
+                                            </li>
+                                            <li className="nav-item">
                                                 <NavLink to={'employeeongoing'} className="nav-link">
                                                     <i className="bi bi-graph-up-arrow"></i> Ongoing projects
                                                 </NavLink>

@@ -19,7 +19,7 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("register", values)
+        axios.post("http://localhost:5000/register", values)
             .then((res) => {
                 console.log(res.data.data);
                 alert('Registration successful');
